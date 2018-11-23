@@ -35,6 +35,7 @@ Coco/R itself) does not fall under the GNU General Public License.
 #include "Scanner.h"
 #include "Generator.h"
 
+// NOTE: modified by Rochus, Expect and SynErr extendet by __func__ argument
 namespace Coco {
 
 void ParserGen::Indent (int n) {
@@ -197,7 +198,7 @@ void ParserGen::GenCode (Node *p, int indent, BitArray *isChecked) {
 			else {
 				fwprintf(gen, L"Expect(");
 				WriteSymbolOrCode(gen, p->sym);
-				fwprintf(gen, L");\n");
+				fwprintf(gen, L",__func__);\n");
 			}
 		} if (p->typ == Node::wt) {
 			Indent(indent);
@@ -215,8 +216,8 @@ void ParserGen::GenCode (Node *p, int indent, BitArray *isChecked) {
 			} else {
 				GenErrorMsg(altErr, curSy);
 				if (acc > 0) {
-					fwprintf(gen, L"if ("); GenCond(p->set, p); fwprintf(gen, L") Get(); else SynErr(%d);\n", errorNr);
-				} else fwprintf(gen, L"SynErr(%d); // ANY node that matches no symbol\n", errorNr);
+					fwprintf(gen, L"if ("); GenCond(p->set, p); fwprintf(gen, L") Get(); else SynErr(%d,__func__);\n", errorNr);
+				} else fwprintf(gen, L"SynErr(%d,__func__); // ANY node that matches no symbol\n", errorNr);
 			}
 		} if (p->typ == Node::eps) {	// nothing
 		} if (p->typ == Node::rslv) {	// nothing
@@ -227,7 +228,7 @@ void ParserGen::GenCode (Node *p, int indent, BitArray *isChecked) {
 			GenErrorMsg(syncErr, curSy);
 			s1 = p->set->Clone();
 			fwprintf(gen, L"while (!("); GenCond(s1, p); fwprintf(gen, L")) {");
-			fwprintf(gen, L"SynErr(%d); Get();", errorNr); fwprintf(gen, L"}\n");
+			fwprintf(gen, L"SynErr(%d,__func__); Get();", errorNr); fwprintf(gen, L"}\n");
 		} if (p->typ == Node::alt) {
 			s1 = tab->First(p);
 			bool equal = Sets::Equals(s1, isChecked);
@@ -258,10 +259,10 @@ void ParserGen::GenCode (Node *p, int indent, BitArray *isChecked) {
 			} else {
 				GenErrorMsg(altErr, curSy);
 				if (useSwitch) {
-					fwprintf(gen, L"default: SynErr(%d); break;\n", errorNr);
+					fwprintf(gen, L"default: SynErr(%d,__func__); break;\n", errorNr);
 					Indent(indent); fwprintf(gen, L"}\n");
 				} else {
-					fwprintf(gen, L"} "); fwprintf(gen, L"else SynErr(%d);\n", errorNr);
+					fwprintf(gen, L"} "); fwprintf(gen, L"else SynErr(%d,__func__);\n", errorNr);
 				}
 			}
 		} if (p->typ == Node::iter) {
@@ -442,7 +443,7 @@ void ParserGen::WriteParser () {
 
 	g.CopyFramePart(L"-->pragmas"); GenCodePragmas();
 	g.CopyFramePart(L"-->productions"); GenProductions();
-	g.CopyFramePart(L"-->parseRoot"); fwprintf(gen, L"\t%ls();\n", tab->gramSy->name); if (tab->checkEOF) fwprintf(gen, L"\tExpect(0);");
+	g.CopyFramePart(L"-->parseRoot"); fwprintf(gen, L"\t%ls();\n", tab->gramSy->name); if (tab->checkEOF) fwprintf(gen, L"\tExpect(0,__func__);");
 	g.CopyFramePart(L"-->constants");
 	fwprintf(gen, L"\tmaxT = %d;\n", tab->terminals->Count-1);
 	g.CopyFramePart(L"-->initialization"); InitSets();
