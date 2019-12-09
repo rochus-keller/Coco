@@ -35,7 +35,7 @@ Coco/R itself) does not fall under the GNU General Public License.
 namespace Coco {
 
 
-void Parser::SynErr(int n) {
+void Parser::SynErr(int n, const char *func_name) {
 	if (errDist >= minErrDist) errors->SynErr(la->line, la->col, n);
 	errDist = 0;
 }
@@ -71,14 +71,14 @@ void Parser::Get() {
 	}
 }
 
-void Parser::Expect(int n) {
-	if (la->kind==n) Get(); else { SynErr(n); }
+void Parser::Expect(int n, const char *func_name) {
+	if (la->kind==n) Get(); else { SynErr(n, func_name); }
 }
 
 void Parser::ExpectWeak(int n, int follow) {
 	if (la->kind == n) Get();
 	else {
-		SynErr(n);
+		SynErr(n, __FUNCTION__);
 		while (!StartOf(follow)) Get();
 	}
 }
@@ -87,7 +87,7 @@ bool Parser::WeakSeparator(int n, int syFol, int repFol) {
 	if (la->kind == n) {Get(); return true;}
 	else if (StartOf(repFol)) {return false;}
 	else {
-		SynErr(n);
+		SynErr(n, __FUNCTION__);
 		while (!(StartOf(syFol) || StartOf(repFol) || StartOf(0))) {
 			Get();
 		}
@@ -105,10 +105,10 @@ void Parser::Coco() {
 		 pgen->usingPos = new Position(beg, t->pos + coco_string_length(t->val), 0, line);
 		}
 		
-		Expect(6 /* "COMPILER" */);
+		Expect(6 /* "COMPILER" */,__FUNCTION__);
 		genScanner = true; 
 		tab->ignored = new CharSet(); 
-		Expect(_ident);
+		Expect(_ident,__FUNCTION__);
 		gramName = coco_string_create(t->val);
 		beg = la->pos;
 		line = la->line;
@@ -142,9 +142,9 @@ void Parser::Coco() {
 		while (la->kind == 11 /* "COMMENTS" */) {
 			Get();
 			bool nested = false; 
-			Expect(12 /* "FROM" */);
+			Expect(12 /* "FROM" */,__FUNCTION__);
 			TokenExpr(g1);
-			Expect(13 /* "TO" */);
+			Expect(13 /* "TO" */,__FUNCTION__);
 			TokenExpr(g2);
 			if (la->kind == 14 /* "NESTED" */) {
 				Get();
@@ -157,8 +157,8 @@ void Parser::Coco() {
 			Set(s);
 			tab->ignored->Or(s); 
 		}
-		while (!(la->kind == _EOF || la->kind == 16 /* "PRODUCTIONS" */)) {SynErr(42); Get();}
-		Expect(16 /* "PRODUCTIONS" */);
+		while (!(la->kind == _EOF || la->kind == 16 /* "PRODUCTIONS" */)) {SynErr(42,__FUNCTION__); Get();}
+		Expect(16 /* "PRODUCTIONS" */,__FUNCTION__);
 		if (genScanner) dfa->MakeDeterministic();
 		tab->DeleteNodes();
 		
@@ -193,8 +193,8 @@ void Parser::Coco() {
 			
 			ExpectWeak(18 /* "." */, 4);
 		}
-		Expect(19 /* "END" */);
-		Expect(_ident);
+		Expect(19 /* "END" */,__FUNCTION__);
+		Expect(_ident,__FUNCTION__);
 		if (!coco_string_equal(gramName, t->val))
 		 SemErr(L"name does not match grammar name");
 		tab->gramSy = tab->FindSym(gramName);
@@ -227,22 +227,22 @@ void Parser::Coco() {
 		}
 		if (tab->ddt[6]) tab->PrintSymbolTable();
 		
-		Expect(18 /* "." */);
+		Expect(18 /* "." */,__FUNCTION__);
 }
 
 void Parser::SetDecl() {
 		CharSet *s; 
-		Expect(_ident);
+		Expect(_ident,__FUNCTION__);
 		wchar_t *name = coco_string_create(t->val);
 		CharClass *c = tab->FindCharClass(name);
 		if (c != NULL) SemErr(L"name declared twice");
 		
-		Expect(17 /* "=" */);
+		Expect(17 /* "=" */,__FUNCTION__);
 		Set(s);
 		if (s->Elements() == 0) SemErr(L"character set must not be empty");
 		tab->NewCharClass(name, s);
 		
-		Expect(18 /* "." */);
+		Expect(18 /* "." */,__FUNCTION__);
 }
 
 void Parser::TokenDecl(int typ) {
@@ -256,11 +256,11 @@ void Parser::TokenDecl(int typ) {
 		}
 		tokenString = NULL;
 		
-		while (!(StartOf(5))) {SynErr(43); Get();}
+		while (!(StartOf(5))) {SynErr(43,__FUNCTION__); Get();}
 		if (la->kind == 17 /* "=" */) {
 			Get();
 			TokenExpr(g);
-			Expect(18 /* "." */);
+			Expect(18 /* "." */,__FUNCTION__);
 			if (kind == str) SemErr(L"a literal must not be declared with a structure");
 			tab->Finish(g);
 			if (tokenString == NULL || coco_string_equal(tokenString, noString))
@@ -276,7 +276,7 @@ void Parser::TokenDecl(int typ) {
 			if (kind == id) genScanner = false;
 			else dfa->MatchLiteral(sym->name, sym);
 			
-		} else SynErr(44);
+		} else SynErr(44,__FUNCTION__);
 		if (la->kind == 39 /* "(." */) {
 			SemText(sym->semPos);
 			if (typ != Node::pr) SemErr(L"semantic action not allowed here"); 
@@ -323,7 +323,7 @@ void Parser::AttrDecl(Symbol *sym) {
 					SemErr(L"bad string in attributes"); 
 				}
 			}
-			Expect(25 /* ">" */);
+			Expect(25 /* ">" */,__FUNCTION__);
 			if (t->pos > beg)
 			 sym->attrPos = new Position(beg, t->pos, col, line); 
 		} else if (la->kind == 26 /* "<." */) {
@@ -337,14 +337,14 @@ void Parser::AttrDecl(Symbol *sym) {
 					SemErr(L"bad string in attributes"); 
 				}
 			}
-			Expect(27 /* ".>" */);
+			Expect(27 /* ".>" */,__FUNCTION__);
 			if (t->pos > beg)
 			 sym->attrPos = new Position(beg, t->pos, col, line); 
-		} else SynErr(45);
+		} else SynErr(45,__FUNCTION__);
 }
 
 void Parser::SemText(Position* &pos) {
-		Expect(39 /* "(." */);
+		Expect(39 /* "(." */,__FUNCTION__);
 		int beg = la->pos; int col = la->col; int line = t->line; 
 		while (StartOf(13)) {
 			if (StartOf(14)) {
@@ -357,7 +357,7 @@ void Parser::SemText(Position* &pos) {
 				SemErr(L"missing end of previous semantic action"); 
 			}
 		}
-		Expect(40 /* ".)" */);
+		Expect(40 /* ".)" */,__FUNCTION__);
 		pos = new Position(beg, t->pos, col, line); 
 }
 
@@ -408,11 +408,11 @@ void Parser::SimSet(CharSet* &s) {
 		} else if (la->kind == 23 /* "ANY" */) {
 			Get();
 			s = new CharSet(); s->Fill(); 
-		} else SynErr(46);
+		} else SynErr(46,__FUNCTION__);
 }
 
 void Parser::Char(int &n) {
-		Expect(_char);
+		Expect(_char,__FUNCTION__);
 		n = 0;
 		wchar_t* subName = coco_string_create(t->val, 1, coco_string_length(t->val)-2);
 		wchar_t* name = tab->Unescape(subName);
@@ -452,7 +452,7 @@ void Parser::Sym(wchar_t* &name, int &kind) {
 			}
 			if (coco_string_indexof(name, ' ') >= 0)
 			 SemErr(L"literal tokens must not contain blanks"); 
-		} else SynErr(47);
+		} else SynErr(47,__FUNCTION__);
 }
 
 void Parser::Term(Graph* &g) {
@@ -472,14 +472,14 @@ void Parser::Term(Graph* &g) {
 			}
 		} else if (StartOf(19)) {
 			g = new Graph(tab->NewNode(Node::eps, (Symbol*)NULL, 0)); 
-		} else SynErr(48);
+		} else SynErr(48,__FUNCTION__);
 		if (g == NULL) // invalid start of Term
 		g = new Graph(tab->NewNode(Node::eps, (Symbol*)NULL, 0)); 
 }
 
 void Parser::Resolver(Position* &pos) {
-		Expect(37 /* "IF" */);
-		Expect(30 /* "(" */);
+		Expect(37 /* "IF" */,__FUNCTION__);
+		Expect(30 /* "(" */,__FUNCTION__);
 		int beg = la->pos; int col = la->col; int line = la->line; 
 		Condition();
 		pos = new Position(beg, t->pos, col, line); 
@@ -535,20 +535,20 @@ void Parser::Factor(Graph* &g) {
 		case 30 /* "(" */: {
 			Get();
 			Expression(g);
-			Expect(31 /* ")" */);
+			Expect(31 /* ")" */,__FUNCTION__);
 			break;
 		}
 		case 32 /* "[" */: {
 			Get();
 			Expression(g);
-			Expect(33 /* "]" */);
+			Expect(33 /* "]" */,__FUNCTION__);
 			tab->MakeOption(g); 
 			break;
 		}
 		case 34 /* "{" */: {
 			Get();
 			Expression(g);
-			Expect(35 /* "}" */);
+			Expect(35 /* "}" */,__FUNCTION__);
 			tab->MakeIteration(g); 
 			break;
 		}
@@ -574,7 +574,7 @@ void Parser::Factor(Graph* &g) {
 			
 			break;
 		}
-		default: SynErr(49); break;
+		default: SynErr(49,__FUNCTION__); break;
 		}
 		if (g == NULL) // invalid start of Factor
 		 g = new Graph(tab->NewNode(Node::eps, (Symbol*)NULL, 0));
@@ -593,7 +593,7 @@ void Parser::Attribs(Node *p) {
 					SemErr(L"bad string in attributes"); 
 				}
 			}
-			Expect(25 /* ">" */);
+			Expect(25 /* ">" */,__FUNCTION__);
 			if (t->pos > beg) p->pos = new Position(beg, t->pos, col, line); 
 		} else if (la->kind == 26 /* "<." */) {
 			Get();
@@ -606,9 +606,9 @@ void Parser::Attribs(Node *p) {
 					SemErr(L"bad string in attributes"); 
 				}
 			}
-			Expect(27 /* ".>" */);
+			Expect(27 /* ".>" */,__FUNCTION__);
 			if (t->pos > beg) p->pos = new Position(beg, t->pos, col, line); 
-		} else SynErr(50);
+		} else SynErr(50,__FUNCTION__);
 }
 
 void Parser::Condition() {
@@ -620,7 +620,7 @@ void Parser::Condition() {
 				Get();
 			}
 		}
-		Expect(31 /* ")" */);
+		Expect(31 /* ")" */,__FUNCTION__);
 }
 
 void Parser::TokenTerm(Graph* &g) {
@@ -632,11 +632,11 @@ void Parser::TokenTerm(Graph* &g) {
 		}
 		if (la->kind == 38 /* "CONTEXT" */) {
 			Get();
-			Expect(30 /* "(" */);
+			Expect(30 /* "(" */,__FUNCTION__);
 			TokenExpr(g2);
 			tab->SetContextTrans(g2->l); dfa->hasCtxMoves = true;
 			   tab->MakeSequence(g, g2); 
-			Expect(31 /* ")" */);
+			Expect(31 /* ")" */,__FUNCTION__);
 		}
 }
 
@@ -663,18 +663,18 @@ void Parser::TokenFactor(Graph* &g) {
 		} else if (la->kind == 30 /* "(" */) {
 			Get();
 			TokenExpr(g);
-			Expect(31 /* ")" */);
+			Expect(31 /* ")" */,__FUNCTION__);
 		} else if (la->kind == 32 /* "[" */) {
 			Get();
 			TokenExpr(g);
-			Expect(33 /* "]" */);
+			Expect(33 /* "]" */,__FUNCTION__);
 			tab->MakeOption(g); tokenString = coco_string_create(noString); 
 		} else if (la->kind == 34 /* "{" */) {
 			Get();
 			TokenExpr(g);
-			Expect(35 /* "}" */);
+			Expect(35 /* "}" */,__FUNCTION__);
 			tab->MakeIteration(g); tokenString = coco_string_create(noString); 
-		} else SynErr(51);
+		} else SynErr(51,__FUNCTION__);
 		if (g == NULL) // invalid start of TokenFactor
 		 g = new Graph(tab->NewNode(Node::eps, (Symbol*)NULL, 0)); 
 }
@@ -696,7 +696,7 @@ struct ParserInitExistsRecognizer {
 	struct InitIsMissingType {
 		char dummy1;
 	};
-	
+
 	struct InitExistsType {
 		char dummy1; char dummy2;
 	};
@@ -720,7 +720,7 @@ struct ParserDestroyExistsRecognizer {
 	struct DestroyIsMissingType {
 		char dummy1;
 	};
-	
+
 	struct DestroyExistsType {
 		char dummy1; char dummy2;
 	};
@@ -776,7 +776,7 @@ void Parser::Parse() {
 	la->val = coco_string_create(L"Dummy Token");
 	Get();
 	Coco();
-	Expect(0);
+	Expect(0,__FUNCTION__);
 }
 
 Parser::Parser(Scanner *scanner) {
@@ -917,7 +917,7 @@ void Errors::Warning(const wchar_t *s) {
 }
 
 void Errors::Exception(const wchar_t* s) {
-	wprintf(L"%ls", s); 
+	wprintf(L"%ls", s);
 	exit(1);
 }
 

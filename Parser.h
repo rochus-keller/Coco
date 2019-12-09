@@ -71,9 +71,9 @@ private:
 	int errDist;
 	int minErrDist;
 
-	void SynErr(int n);
+	void SynErr(int n, const char *func_name);
 	void Get();
-	void Expect(int n);
+	void Expect(int n, const char *func_name);
 	bool StartOf(int s);
 	void ExpectWeak(int n, int follow);
 	bool WeakSeparator(int n, int syFol, int repFol);

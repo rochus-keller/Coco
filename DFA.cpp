@@ -40,18 +40,20 @@ namespace Coco {
 
 //---------- Output primitives
 wchar_t* DFA::Ch(wchar_t ch) {
-	wchar_t* format = new wchar_t[10];
+	const int bufsz = 10;
+	wchar_t* format = new wchar_t[bufsz];
 	if (ch < L' ' || ch >= 127 || ch == L'\'' || ch == L'\\')
-		coco_swprintf(format, 10, L"%d\0", (int) ch);
+		coco_swprintf(format, bufsz, L"%d\0", (int) ch);
 	else
-		coco_swprintf(format, 10, L"L'%lc'\0", (int) ch);
+		coco_swprintf(format, bufsz, L"L'%lc'\0", (int) ch);
 	return format;
 }
 
 wchar_t* DFA::ChCond(wchar_t ch) {
-	wchar_t* format = new wchar_t[20];
+	const int bufsz = 20;
+	wchar_t* format = new wchar_t[bufsz];
 	wchar_t* res = Ch(ch);
-	coco_swprintf(format, 20, L"ch == %ls\0", res);
+	coco_swprintf(format, bufsz, L"ch == %ls\0", res);
 	delete [] res;
 	return format;
 }
@@ -380,7 +382,7 @@ void DFA::PrintStates() {
 		if (state->endOf == NULL) fwprintf(trace, L"               ");
 		else {
 			wchar_t *paddedName = tab->Name(state->endOf->name);
-			fwprintf(trace, L"E(%12s)", paddedName);
+			fwprintf(trace, L"E(%-12ls)", paddedName);
 			coco_string_delete(paddedName);
 		}
 		fwprintf(trace, L"%3d:", state->nr);
@@ -389,7 +391,7 @@ void DFA::PrintStates() {
 			if (first) {fwprintf(trace, L" "); first = false;} else fwprintf(trace, L"                    ");
 
 			if (action->typ == Node::clas) fwprintf(trace, L"%ls", ((CharClass*)(*tab->classes)[action->sym])->name);
-			else fwprintf(trace, L"%3s", Ch((wchar_t)action->sym));
+			else fwprintf(trace, L"%3ls", Ch((wchar_t)action->sym));
 			for (Target *targ = action->target; targ != NULL; targ = targ->next) {
 				fwprintf(trace, L"%3d", targ->state->nr);
 			}
@@ -755,7 +757,7 @@ void DFA::WriteScanner() {
 	// Header
 	g.GenCopyright();
 	g.SkipFramePart(L"-->begin");
-	
+
 	g.CopyFramePart(L"-->prefix");
 	g.GenPrefixFromNamespace();
 
