@@ -1,0 +1,24 @@
+COMPILER Brainfuck
+
+IGNORE ANY - "><+-.,[]"
+
+PRODUCTIONS
+
+Brainfuck
+=
+	{ Statement }
+.
+
+Statement
+=
+	( ">"
+	| "<"
+	| "+"
+	| "-"
+	| "."
+	| ","
+	| "[" { Statement } "]"
+	)
+.
+
+END Brainfuck.

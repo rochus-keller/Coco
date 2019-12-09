@@ -1,0 +1,1062 @@
+import java.util.BitSet;
+
+
+
+COMPILER CompilationUnit
+
+/*------------------------- modifier handling -----------------------------*/
+
+  class Modifier {
+    final static int _public       = 0x0001;
+    final static int _private      = 0x0002;
+    final static int _protected    = 0x0004;
+    final static int _static       = 0x0008;
+    final static int _final        = 0x0010;
+    final static int _synchronized = 0x0020;
+    final static int _volatile     = 0x0040;
+    final static int _transient    = 0x0080;
+    final static int _native       = 0x0100;
+    final static int _abstract     = 0x0400;
+    final static int _strictfp     = 0x0800;
+
+  /* sets of modifiers that can be attached to certain program elements    *
+   * e.g., "constants" marks all modifiers that may be used with constants */
+    final static int 
+      none         = 0x0000,
+      access       = _public | _protected | _private,    // 0x0007
+      classes      = access | _abstract | _static | _final | _strictfp,    // 0x0c1f
+      fields       = access | _static | _final | _transient | _volatile,  // 0x00df
+      methods      = access | _abstract | _static | _final | _synchronized | _native | _strictfp, // 0x0d3f
+      constructors = access, // 0x0007
+      interfaces   = access | _abstract | _static | _strictfp, // 0x0c0f
+      constants    = _public | _static | _final, // 0x0019
+      all          = 0x0dff;
+  }
+  
+  class Modifiers {
+    private long cur = 0L;
+  	private Parser parser;
+	
+  	public Modifiers(Parser parser) {
+  		this.parser = parser;
+  	}
+
+    public void add (long m) {
+      if ((cur & m) == 0) cur |= m;
+      else error("repeated modifier");
+    }
+    
+    public void check(long allowed) {
+      long wrong = cur & (allowed ^ Modifier.all);
+      if (wrong != Modifier.none)
+        parser.error("modifier(s) " + toString(wrong) + "not allowed here");
+      else
+        checkAccess();
+    }
+    
+    private void checkAccess() {
+      long access = cur & Modifier.access;
+      if (access != Modifier.none && access != Modifier._public && 
+          access != Modifier._protected && access != Modifier._private)
+          parser.error("illegal combination of modifiers: " + toString(access));
+    }
+    
+    private String toString(long m) {
+      String s = "";
+      if ((m & Modifier._public) != 0) s += "public ";
+      if ((m & Modifier._private) != 0) s += "private ";
+      if ((m & Modifier._protected) != 0) s += "protected ";
+      if ((m & Modifier._static) != 0) s += "static ";
+      if ((m & Modifier._final) != 0) s += "final ";
+      if ((m & Modifier._synchronized) != 0) s += "synchronized ";
+      if ((m & Modifier._volatile) != 0) s += "volatile ";
+      if ((m & Modifier._transient) != 0) s += "transient ";
+      if ((m & Modifier._native) != 0) s += "native ";
+      if ((m & Modifier._abstract) != 0) s += "abstract ";
+      if ((m & Modifier._strictfp) != 0) s += "strictfp ";
+      return s;
+    }
+  }
+
+/*-------------------- expression handling ----------------------------------*/
+  
+  class ExprKind {
+    static final int NONE     =  0;
+    static final int CONDEXPR = 17;
+    static final int APPLY    = 25;
+    static final int NEWCLASS = 26;
+    static final int NEWARRAY = 27;
+    static final int PARENS   = 28;
+    static final int ASSIGN   = 29;
+    static final int TYPECAST = 30;
+    static final int TYPETEST = 31;
+    static final int SELECT   = 33;
+    static final int IDENT    = 34;
+    static final int LITERAL  = 35;
+    static final int POS      = 41;
+    static final int NEG      = 42;
+    static final int NOT      = 43;
+    static final int COMPL    = 44;
+    static final int PREINC   = 45;
+    static final int PREDEC   = 46;
+    static final int POSTINC  = 47;
+    static final int POSTDEC  = 48;
+    static final int BINARY   = 50;
+  }
+
+  class ExprInfo {
+    private int kind = ExprKind.NONE;
+	  private Parser parser;
+	
+  	public ExprInfo(Parser parser) {
+  		this.parser = parser;
+  	}
+    
+    public int getKind() {
+      return kind;
+    }
+    
+    public void setKind(int k) {
+      kind = k;
+    }
+    
+    public void checkExprStat() {
+      if ( kind != ExprKind.APPLY &&  kind != ExprKind.NEWCLASS && 
+           kind != ExprKind.ASSIGN && kind != ExprKind.PREINC &&
+           kind != ExprKind.PREDEC && kind != ExprKind.POSTINC &&
+           kind != ExprKind.POSTDEC)
+        parser.error("not a statement" + " (" + kind + ")");
+    }
+  }
+  
+/*---------------------------- token sets -----------------------------------*/
+
+final static int maxTerminals = 160;  // set size
+
+static BitSet newSet(int[] values) {
+  BitSet s = new BitSet(maxTerminals);
+  for (int i=0; i<values.length; i++) s.set(values[i]);
+  return s;
+}
+
+static BitSet or(BitSet s1, BitSet s2) {
+  s1.or(s2);
+  return s1;
+}
+
+static int[] typeKWarr = {_byte, _short, _char, _int, _long, _float, _double, 
+                          _boolean};
+static int[] castFollowerArr = {_ident, _new, _super, _this, _void, _intLit,
+                                _floatLit, _charLit, _stringLit, _true, _false,
+                                _null, _lpar, _not, _tilde};
+static int[] prefixArr = {_inc, _dec, _not, _tilde, _plus, _minus};                                
+
+static BitSet
+  typeKW       = newSet(typeKWarr),
+  castFollower = or(newSet(castFollowerArr), typeKW),
+  prefix       = newSet(prefixArr);
+
+/*---------------------------- auxiliary methods ----------------------------*/
+
+void error (String s) {
+  if (errDist >= minErrDist) errors.SemErr(la.line, la.col, s);
+  errDist = 0;
+}
+
+// "(" BasicType {"[""]"} ")"
+boolean isSimpleTypeCast () {
+  // assert: la.kind == _lpar
+  scanner.ResetPeek();
+  Token pt1 = scanner.Peek();
+  
+  if (typeKW.get(pt1.kind)) {
+    Token pt = scanner.Peek();
+    pt = skipDims(pt);
+    if (pt != null) {
+      return pt.kind == _rpar;
+    }
+  }
+  return false;
+}
+
+// "(" Qualident {"[" "]"} ")" castFollower
+boolean guessTypeCast () {
+  // assert: la.kind == _lpar
+  scanner.ResetPeek();
+  Token pt = scanner.Peek();
+  pt = rdQualident(pt);
+  if (pt != null) {
+    pt = skipDims(pt);
+    if (pt != null) {
+      Token pt1 = scanner.Peek();
+      return pt.kind == _rpar && castFollower.get(pt1.kind);
+    }
+  }
+  return false;
+}
+
+// "[" "]"
+Token skipDims (Token pt) {
+  if (pt.kind != _lbrack) return pt;
+  do {
+     pt = scanner.Peek();
+    if (pt.kind != _rbrack) return null;
+     pt = scanner.Peek();
+  } while (pt.kind == _lbrack);  
+  return pt;
+}
+
+/* Checks whether the next sequence of tokens is a qualident *
+ * and returns the qualident string                          *
+ * !!! Proceeds from current peek position !!!               */
+Token rdQualident (Token pt) {
+  String qualident = "";
+  
+  if (pt.kind == _ident) {
+    qualident = pt.val;
+    pt = scanner.Peek();
+    while (pt.kind == _dot) {
+      pt = scanner.Peek();
+      if (pt.kind != _ident) return null;
+      qualident += "." + pt.val;
+      pt = scanner.Peek();
+    }
+    return pt;
+  } else return null;
+}
+
+// Return the n-th token after the current lookahead token
+Token peek(int n) {
+  scanner.ResetPeek();
+  Token x = la;
+  while (n > 0) { x = scanner.Peek(); n--; }
+  return x;
+}
+
+/*-----------------------------------------------------------------*
+ * Resolver routines to resolve LL(1) conflicts:                   *
+ * These routines return a boolean value that indicates            *
+ * whether the alternative at hand shall be choosen or not.        *
+ * They are used in IF ( ... ) expressions.                        *       
+ *-----------------------------------------------------------------*/
+
+// ',' (no '}')
+boolean commaAndNoRBrace() {
+  return (la.kind == _comma && peek(1).kind != _rbrace);
+}
+
+// '.' ident
+boolean dotAndIdent() {
+  return la.kind == _dot && peek(1).kind == _ident;
+}
+
+// ident '('
+boolean identAndLPar () {
+  return la.kind == _ident && peek(1).kind == _lpar;
+}
+
+// ident ':'
+boolean isLabel() {
+  return la.kind == _ident && peek(1).kind == _colon;
+}
+
+// '[' (no ']')
+boolean nonEmptyBracket() {
+  return (la.kind == _lbrack && peek(1).kind != _rbrack);
+}
+
+// '['']'
+boolean emptyBracket() {
+  return (la.kind == _lbrack && peek(1).kind == _rbrack);
+}
+
+// final or Type ident
+boolean isLocalVarDecl(boolean finalIsSuccess) {
+  Token pt = la;
+  scanner.ResetPeek();
+  
+  if (la.kind == _final) 
+    if (finalIsSuccess) return true;
+    else pt = scanner.Peek();
+
+  // basicType | ident
+  if (typeKW.get(pt.kind))
+    pt = scanner.Peek();
+  else
+    pt = rdQualident(pt);
+    
+  if (pt != null) {
+    pt = skipDims(pt);
+    if (pt != null) {
+      return pt.kind == _ident;
+    }
+  }
+  return false;
+}
+
+boolean isTypeCast() {
+  if (la.kind != _lpar) return false;
+  if (isSimpleTypeCast()) return true;
+  return guessTypeCast();
+}
+
+// '.' ("super" '.' | "class" | "this") | '(' | '['']'
+boolean isIdentSuffix() {
+  if (la.kind == _dot) {
+    scanner.ResetPeek();
+    Token pt = scanner.Peek();
+    if (pt.kind == _super) return scanner.Peek().kind == _dot;
+    return (pt.kind == _class || pt.kind == _this);
+  }
+  return (la.kind == _lpar || emptyBracket());
+}
+
+/*-------------------------------------------------------------------------*/
+
+CHARACTERS
+  tab           = '\u0009'. /*  9 = tabulator */
+  lf            = '\u000a'. /* 10 = line feed */
+  cr            = '\u000d'. /* 13 = carriage return */
+
+  zero          = '0'.
+  zeroToThree   = zero + "123" .
+  octalDigit    = zero + "1234567" . 
+  nonZeroDigit  = "123456789".
+  digit         = '0' + nonZeroDigit .
+  hexDigit      = digit + "ABCDEFabcdef" .
+  letter        = 'A' .. 'Z' + 'a' .. 'z' + '_' + '$'.
+
+  char          = ANY - "'" - '\\' - cr - lf.
+  stringChar    = ANY - "\"" - '\\' - cr - lf.
+
+TOKENS
+  ident         = letter { letter | digit }.
+  /*-------------------------------------------------------------------------*/
+  intLit = 
+  (  zero | nonZeroDigit { digit }
+  | ( "0x" | "0X" ) hexDigit { hexDigit }
+  | '0' octalDigit { octalDigit }
+  ) [ "l" | "L" ].
+  /*-------------------------------------------------------------------------*/
+  floatLit =
+    "." digit {digit} 
+    [("e" | "E") ["+" | "-"] digit {digit}] 
+    [ "F" | "f" | "D" | "d" ]
+  | digit {digit} 
+    ( "." {digit} 
+      [("e" | "E" ) ["+" | "-"] digit {digit} ] 
+      [ "F" | "f" | "D" | "d" ]
+    | ("e" | "E") ["+" | "-"] digit {digit}
+      [ "F" | "f" | "D" | "d" ]
+    | "F" | "f" | "D" | "d"
+    ).  
+  /*-------------------------------------------------------------------------*/
+  charLit = 
+    "'" ( char
+        | "\\" ( "b" | "t" | "n" | "f" | "r" | "\"" | "\'" | "\\"
+               | "u" { "u" } hexDigit hexDigit hexDigit hexDigit
+               | zeroToThree [ octalDigit ] [ octalDigit ]
+               | octalDigit [ octalDigit ]
+               )
+        ) 
+    "'".
+  /*-------------------------------------------------------------------------*/
+  stringLit = 
+    "\"" { stringChar
+         | "\\" ( "b" | "t" | "n" | "f" | "r" | "\"" | "\'" | "\\"
+                | "u" { "u" } hexDigit hexDigit hexDigit hexDigit
+                | zeroToThree [ octalDigit ] [ octalDigit ]
+                | octalDigit [ octalDigit ]
+                )
+         } 
+    "\"".
+
+  /*----- keyword names needed in LL(1) resolvers -----*/
+
+  boolean = "boolean".
+  byte    = "byte".
+  char    = "char".
+  class   = "class".
+  double  = "double".
+  false   = "false".
+  final   = "final".
+  float   = "float".
+  int     = "int".
+  long    = "long".
+  new     = "new".
+  null    = "null".
+  short   = "short".
+  static  = "static".
+  super   = "super".
+  this    = "this".
+  true    = "true".
+  void    = "void".
+  
+  /*----- operators and special characters needed in LL(1) resolvers --------------*/
+
+  colon   = ":".
+  comma   = ",".
+  dec     = "--".
+  dot     = ".".
+  inc     = "++".
+  lbrace  = "{".
+  lbrack  = "[".
+  lpar    = "(".
+  minus   = "-".
+  not     = "!".
+  plus    = "+".
+  rbrace  = "}".
+  rbrack  = "]".
+  rpar    = ")".
+  tilde   = "~".
+
+COMMENTS FROM "/*" TO "*/"
+COMMENTS FROM "//" TO lf
+
+IGNORE lf + cr + tab
+
+/*---------------------------------------------------------------------------*/
+
+PRODUCTIONS
+
+CompilationUnit
+= [ "package" Qualident ';' ]
+  { ImportDeclaration }
+  { TypeDeclaration }
+           (. if (la.kind != _EOF) error("'class' or 'interface' expected"); .)
+.
+
+/*---------------------------------------------------------------------------*/
+
+Qualident
+= ident { '.' ident }
+.
+
+/*---------------------------------------------------------------------------*/
+
+ImportDeclaration
+= "import" ident QualifiedImport ';'
+.
+
+/*---------------------------------------------------------------------------*/
+
+QualifiedImport
+= "." (ident [QualifiedImport] | "*")
+.
+
+/*---------------------------------------------------------------------------*/
+
+TypeDeclaration
+= ClassOrInterfaceDeclaration 
+| ";"
+.
+
+/*---------------------------------------------------------------------------*/
+
+ClassOrInterfaceDeclaration           (. Modifiers m = new Modifiers(this); .) 
+= { ClassModifier<m> } 
+  ( ClassDeclaration<m>
+  |  InterfaceDeclaration<m>
+  )
+.
+
+/*---------------------------------------------------------------------------*/
+
+ClassModifier<Modifiers m>
+= "public"                                   (. m.add(Modifier._public);    .)
+| "protected"                                (. m.add(Modifier._protected); .)
+| "private"                                  (. m.add(Modifier._private);   .)
+| "abstract"                                 (. m.add(Modifier._abstract);  .)
+| "static"                                   (. m.add(Modifier._static);    .)
+| "final"                                    (. m.add(Modifier._final);     .)
+| "strictfp"                                 (. m.add(Modifier._strictfp);  .)
+.
+
+/*---------------------------------------------------------------------------*/
+
+Modifier<Modifiers m>
+= "static"                                   (. m.add(Modifier._static);    .)
+|  Modifier1<m>
+.
+
+/*---------------------------------------------------------------------------*/
+
+Modifier1<Modifiers m>
+= "public"                                  (. m.add(Modifier._public);      .)
+| "protected"                               (. m.add(Modifier._protected);   .)
+| "private"                                 (. m.add(Modifier._private);     .)
+| "abstract"                                (. m.add(Modifier._abstract);    .)
+| "final"                                   (. m.add(Modifier._final);       .)
+| "native"                                  (. m.add(Modifier._native);      .)
+| "synchronized"                            (. m.add(Modifier._synchronized);.)
+| "transient"                               (. m.add(Modifier._transient);   .)
+| "volatile"                                (. m.add(Modifier._volatile);    .)
+| "strictfp"                                (. m.add(Modifier._strictfp);    .)
+.
+
+/*---------------------------------------------------------------------------*/
+
+Type
+= ( Qualident
+  | BasicType
+  ) BracketsOpt
+.
+
+/*---------------------------------------------------------------------------*/
+
+BasicType
+= "byte"
+| "short"
+| "char"
+| "int"
+| "long"
+| "float"
+| "double"
+| "boolean"
+.
+
+/*---------------------------------------------------------------------------*/
+
+BracketsOpt
+= { "[" "]" }
+.
+
+/*---------------------------------------------------------------------------*/
+
+TypeList
+= Type { "," Type }
+.
+
+/*---------------------------------------------------------------------------*/
+
+FormalParameter
+= [ "final" ] Type VariableDeclaratorId
+.
+
+/*---------------------------------------------------------------------------*/
+
+QualidentList
+= Qualident { "," Qualident }
+.
+
+/*---------------------------------------------------------------------------*/
+
+VariableDeclarator
+= ident VariableDeclaratorRest
+.
+
+/*---------------------------------------------------------------------------*/
+
+VariableDeclaratorId
+= ident BracketsOpt
+.
+
+/*---------------------------------------------------------------------------*/
+
+VariableDeclaratorRest
+= BracketsOpt [ "=" VariableInitializer ]
+.
+
+/*---------------------------------------------------------------------------*/
+
+VariableInitializer                 (. ExprInfo dummy = new ExprInfo(this); .) 
+= ArrayInitializer
+| Expression<dummy>
+.
+
+/*---------------------------------------------------------------------------*
+ *---------------------------- Classes --------------------------------------*
+ *---------------------------------------------------------------------------*/
+
+ClassDeclaration<Modifiers m>
+=                                              (. m.check(Modifier.classes); .)
+  "class" ident [ "extends" Type ] [ "implements" TypeList] ClassBody
+.
+
+/*---------------------------------------------------------------------------*/
+
+ClassBody
+= "{" { ClassBodyDeclaration } "}"
+.
+
+/*---------------------------------------------------------------------------*/
+
+ClassBodyDeclaration
+= ";"
+|                                     (. Modifiers m = new Modifiers(this); .)
+  ["static"                           (. m.add(Modifier._static);           .)
+  ] ( Block
+    | [ Modifier1<m> { Modifier<m> } ] MemberDecl<m>
+    )
+.
+
+/*---------------------------------------------------------------------------*/
+
+MemberDecl<Modifiers m>
+= IF (identAndLPar()) ident ConstructorDeclaratorRest<m>
+| MethodOrFieldDecl<m>
+|                                             (. m.check(Modifier.methods); .)
+  "void" ident VoidMethodDeclaratorRest
+| ClassDeclaration<m>
+| InterfaceDeclaration<m>
+.
+
+/*---------------------------------------------------------------------------*/
+
+MethodOrFieldDecl<Modifiers m>
+= Type ident MethodOrFieldRest<m>
+.
+
+/*---------------------------------------------------------------------------*/
+
+MethodOrFieldRest<Modifiers m>
+=                                              (. m.check(Modifier.fields);  .) 
+  VariableDeclaratorsRest ';'
+|                                              (. m.check(Modifier.methods); .)
+  MethodDeclaratorRest  
+.
+
+/*---------------------------------------------------------------------------*/
+
+VariableDeclaratorsRest
+= VariableDeclaratorRest {',' VariableDeclarator}
+.
+
+/*---------------------------------------------------------------------------*/
+
+ArrayInitializer
+= "{" [ VariableInitializer 
+        { IF (commaAndNoRBrace()) "," VariableInitializer }       
+      ] [ "," ] 
+  "}"
+.
+
+/*---------------------------------------------------------------------------*/
+
+MethodDeclaratorRest
+= FormalParameters BracketsOpt [ "throws" QualidentList]
+  ( Block
+  | ";"
+  )
+.
+
+/*---------------------------------------------------------------------------*/
+
+VoidMethodDeclaratorRest
+= FormalParameters ["throws" QualidentList] (Block | ';')
+.
+
+/*---------------------------------------------------------------------------*/
+
+ConstructorDeclaratorRest<Modifiers m>
+=                                         (. m.check(Modifier.constructors); .)
+  FormalParameters [ "throws" QualidentList ] Block
+.
+
+/*---------------------------------------------------------------------------*/
+
+FormalParameters
+= "(" [ FormalParameter { "," FormalParameter } ] ")"
+.
+
+/*---------------------------------------------------------------------------*
+ *---------------------------- Interfaces -----------------------------------*
+ *---------------------------------------------------------------------------*/
+
+InterfaceDeclaration<Modifiers m>
+=                                          (. m.check(Modifier.interfaces); .)
+  "interface" ident [ "extends" TypeList ] InterfaceBody
+.
+
+/*---------------------------------------------------------------------------*/
+
+InterfaceBody
+= "{" { InterfaceBodyDeclaration } "}"
+.
+
+/*---------------------------------------------------------------------------*/
+
+InterfaceBodyDeclaration              (. Modifiers m = new Modifiers(this); .) 
+= ";"
+| { Modifier<m> } InterfaceMemberDecl<m>
+.
+
+/*---------------------------------------------------------------------------*/
+
+InterfaceMemberDecl<Modifiers m>
+= InterfaceMethodOrFieldDecl<m>
+|                                          (. m.check(Modifier.interfaces); .)
+  "void" ident VoidInterfaceMethodDeclaratorRest
+| ClassDeclaration<m>
+| InterfaceDeclaration<m>
+.
+
+/*---------------------------------------------------------------------------*/
+
+InterfaceMethodOrFieldDecl<Modifiers m>
+= Type ident InterfaceMethodOrFieldRest<m>
+.
+
+/*---------------------------------------------------------------------------*/
+
+InterfaceMethodOrFieldRest<Modifiers m>
+=                                          (. m.check(Modifier.constants);  .) 
+  ConstantDeclaratorsRest ";"
+|                                          (. m.check(Modifier.interfaces); .) 
+  InterfaceMethodDeclaratorRest
+.
+
+/*---------------------------------------------------------------------------*/
+
+ConstantDeclaratorsRest
+= ConstantDeclaratorRest { "," ConstantDeclarator }
+.
+
+/*---------------------------------------------------------------------------*/
+
+ConstantDeclaratorRest
+= BracketsOpt "=" VariableInitializer
+.
+
+/*---------------------------------------------------------------------------*/
+
+ConstantDeclarator
+= ident ConstantDeclaratorRest
+.
+
+/*---------------------------------------------------------------------------*/
+
+InterfaceMethodDeclaratorRest
+= FormalParameters BracketsOpt [ "throws" QualidentList] ";"
+.
+
+/*---------------------------------------------------------------------------*/
+
+VoidInterfaceMethodDeclaratorRest
+= FormalParameters [ "throws" QualidentList] ";"
+.
+
+/*---------------------------------------------------------------------------*
+ *---------------------------- Statements -----------------------------------*
+ *---------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------*/
+
+Statement                           (. ExprInfo dummy = new ExprInfo(this); .) 
+= Block
+| "if" ParExpression Statement [ "else" Statement ]
+| "for" "(" [ ForInit ] ";" [ Expression<dummy> ] ";" [ ForUpdate ] ")" Statement
+| "while" ParExpression Statement
+| "do" Statement "while" ParExpression ";"
+| "try" Block ( Catches [ "finally" Block ] | "finally" Block )
+| "switch" ParExpression '{' SwitchBlockStatementGroups '}'
+| "synchronized" ParExpression Block
+| "return" [ Expression<dummy> ] ";"
+| "throw" Expression<dummy> ";"
+| "break" [ ident ] ';'
+| "continue" [ ident ] ';'
+| ";"
+| IF (isLabel()) ident ":" Statement
+| StatementExpression ';'
+.
+
+/*---------------------------------------------------------------------------*/
+
+Block
+= "{" { BlockStatement } "}"
+.
+
+/*---------------------------------------------------------------------------*/
+
+BlockStatement
+= IF(isLocalVarDecl(false)) LocalVariableDeclaration ";"
+| ClassOrInterfaceDeclaration
+| Statement
+.
+
+/*---------------------------------------------------------------------------*/
+
+LocalVariableDeclaration
+= [ "final" ] Type VariableDeclarators  
+.
+
+/*---------------------------------------------------------------------------*/
+
+VariableDeclarators
+= VariableDeclarator { "," VariableDeclarator }
+.
+
+/*---------------------------------------------------------------------------*/
+
+ForInit
+= IF (isLocalVarDecl(true)) LocalVariableDeclaration
+| StatementExpression MoreStatementExpressions
+.
+
+/*---------------------------------------------------------------------------*/
+
+ForUpdate
+= StatementExpression MoreStatementExpressions
+.
+
+/*---------------------------------------------------------------------------*/
+
+StatementExpression                   (. ExprInfo info = new ExprInfo(this); .)
+= Expression<info>                    (. info.checkExprStat();               .) 
+.
+
+/*---------------------------------------------------------------------------*/
+
+MoreStatementExpressions
+= { "," StatementExpression }
+.
+
+/*---------------------------------------------------------------------------*/
+
+Catches
+= CatchClause { CatchClause }
+.
+
+/*---------------------------------------------------------------------------*/
+
+CatchClause
+= "catch" "(" FormalParameter ")" Block
+.
+
+/*---------------------------------------------------------------------------*/
+
+SwitchBlockStatementGroups
+= { SwitchBlockStatementGroup }
+.
+
+/*---------------------------------------------------------------------------*/
+
+SwitchBlockStatementGroup
+= SwitchLabel { BlockStatement }
+.
+
+/*---------------------------------------------------------------------------*/
+
+SwitchLabel
+=                                   (. ExprInfo dummy = new ExprInfo(this); .)
+  "case" Expression<dummy> ':'
+| "default" ':'
+.
+
+/*---------------------------------------------------------------------------*
+ *---------------------------- Expressions ----------------------------------*
+ *---------------------------------------------------------------------------*/
+
+Expression<ExprInfo info>
+= Expression1<info> 
+  {                                    (. ExprInfo dummy = new ExprInfo(this); 
+                                          info.setKind(ExprKind.ASSIGN);    .)
+    AssignmentOperator Expression1<dummy> 
+  }
+.
+
+/*---------------------------------------------------------------------------*/
+
+Expression1<ExprInfo info>
+= Expression2<info> [                   (. info.setKind(ExprKind.CONDEXPR); .) 
+  ConditionalExpr ]
+.
+
+/*---------------------------------------------------------------------------*/
+
+ConditionalExpr                      (. ExprInfo dummy = new ExprInfo(this); .) 
+= "?" Expression<dummy> ":" Expression1<dummy>
+.
+
+/*---------------------------------------------------------------------------*/
+
+Expression2<ExprInfo info>
+= Expression3<info> [ Expression2Rest<info> ]
+.
+
+/*---------------------------------------------------------------------------*/
+
+Expression2Rest<ExprInfo info>      (. ExprInfo dummy = new ExprInfo(this); .) 
+= Infixop Expression3<dummy> { Infixop Expression3<dummy> }
+                                    (. info.setKind(ExprKind.BINARY);       .) 
+| "instanceof" Type                 (. info.setKind(ExprKind.TYPETEST);     .)
+.
+
+/*---------------------------------------------------------------------------*/
+
+Expression3<ExprInfo info>               (. int pre = ExprKind.NONE;        .)
+= { IF(prefix.get(la.kind) || isTypeCast())
+    ( PrefixOp<info>      (. if(pre == ExprKind.NONE) pre = info.getKind(); .)
+    | "(" Type ")"                       (. info.setKind(ExprKind.TYPECAST);.)
+    )
+  }
+  Primary<info> { Selector<info> } { PostfixOp<info> }
+                            (. if (pre != ExprKind.NONE) info.setKind(pre); .)
+.
+
+/*---------------------------------------------------------------------------*/
+
+Primary<ExprInfo info>
+= "(" Expression<info> ")"               (. info.setKind(ExprKind.PARENS);  .)
+| "this"                                 (. info.setKind(ExprKind.IDENT);   .)
+  ArgumentsOpt<info>
+| "super" SuperSuffix<info>
+| Literal                                (. info.setKind(ExprKind.LITERAL); .)
+| "new" Creator<info>
+| ident { IF(dotAndIdent()) '.' ident}   (. info.setKind(ExprKind.IDENT);   .)
+  [ IF(isIdentSuffix()) IdentifierSuffix<info> ]
+| BasicType BracketsOpt '.' "class"      (. info.setKind(ExprKind.SELECT);  .)
+| "void" '.' "class"                     (. info.setKind(ExprKind.SELECT);  .)
+.
+
+/*---------------------------------------------------------------------------*/
+
+ArgumentsOpt<ExprInfo info>
+= [                                       (. info.setKind(ExprKind.APPLY);  .)
+    Arguments ]
+.
+
+/*---------------------------------------------------------------------------*/
+
+Arguments                           (. ExprInfo dummy = new ExprInfo(this); .) 
+= "(" [ Expression<dummy> { "," Expression<dummy> } ] ")"
+.
+
+/*---------------------------------------------------------------------------*/
+
+SuperSuffix<ExprInfo info>
+= Arguments                                (. info.setKind(ExprKind.APPLY); .)
+| '.' ident                                (. info.setKind(ExprKind.IDENT); .)
+  ArgumentsOpt<info>  
+.
+
+/*---------------------------------------------------------------------------*/
+
+Literal
+= intLit
+| floatLit
+| charLit
+| stringLit
+| "true" | "false"
+| "null"
+.
+
+/*---------------------------------------------------------------------------*/
+
+Creator<ExprInfo info>
+= BasicType ArrayCreatorRest            (. info.setKind(ExprKind.NEWARRAY); .)
+| Qualident 
+  ( ArrayCreatorRest                    (. info.setKind(ExprKind.NEWARRAY); .)
+  | ClassCreatorRest                    (. info.setKind(ExprKind.NEWCLASS); .)
+  )
+.
+
+/*---------------------------------------------------------------------------*/
+
+ArrayCreatorRest                    (. ExprInfo dummy = new ExprInfo(this); .) 
+= "[" 
+  ( "]" BracketsOpt ArrayInitializer
+  | Expression<dummy> "]" 
+    { IF (nonEmptyBracket()) "[" Expression<dummy> "]" } 
+    { IF (emptyBracket()) "[" "]" }
+  )
+.
+
+/*---------------------------------------------------------------------------*/
+
+ClassCreatorRest
+= Arguments [ ClassBody ]
+.
+
+/*---------------------------------------------------------------------------*/
+
+IdentifierSuffix<ExprInfo info>
+= '[' ']' BracketsOpt "." "class"           (. info.setKind(ExprKind.SELECT); .)
+|  Arguments                                (. info.setKind(ExprKind.APPLY);  .)
+|  "." ( "class" | "this" | "super" '.' ident ArgumentsOpt<info>)
+.
+
+/*---------------------------------------------------------------------------*/
+
+Selector<ExprInfo info>             (. ExprInfo dummy = new ExprInfo(this); .) 
+= "." ( ident ArgumentsOpt<info>
+      | "super" Arguments
+      | "new" InnerCreator
+      )
+| '[' Expression<dummy> ']'
+.
+
+/*---------------------------------------------------------------------------*/
+
+InnerCreator
+= ident ClassCreatorRest
+.
+
+/*---------------------------------------------------------------------------*/
+
+ParExpression                        (. ExprInfo dummy = new ExprInfo(this); .) 
+= "(" Expression<dummy> ")"
+.
+
+/*---------------------------------------------------------------------------*/
+
+AssignmentOperator
+= "="
+| "+="
+| "-="
+| "*="
+| "/="
+| "&="
+| "|="
+| "^="
+| "%="
+| "<<="
+| ">>="
+| ">>>="
+.
+
+/*---------------------------------------------------------------------------*/
+
+Infixop
+= "||"
+| "&&"
+| "|"
+| "^"
+| "&"
+| "=="
+| "!="
+| "<"
+| ">"
+| "<="
+| ">="
+| "<<"
+| ">>"
+| ">>>"
+| "+"
+| "-"
+| "*"
+| "/"
+| "%"
+.
+
+/*---------------------------------------------------------------------------*/
+
+PrefixOp<ExprInfo info>
+= "++"                                    (. info.setKind(ExprKind.PREINC); .)
+| "--"                                    (. info.setKind(ExprKind.PREDEC); .)
+| "!"                                     (. info.setKind(ExprKind.NOT);    .)
+| "~"                                     (. info.setKind(ExprKind.COMPL);  .)
+| "+"                                     (. info.setKind(ExprKind.POS);    .)
+| "-"                                     (. info.setKind(ExprKind.NEG);    .)
+.
+
+/*---------------------------------------------------------------------------*/
+
+PostfixOp<ExprInfo info>
+= "++"                                   (. info.setKind(ExprKind.POSTINC); .)
+| "--"                                   (. info.setKind(ExprKind.POSTDEC); .)  
+.
+
+/*---------------------------------------------------------------------------*/
+
+END CompilationUnit.

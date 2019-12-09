@@ -1,0 +1,11 @@
+CHARACTERS
+	space = " ".
+	tab = "\t".
+	cr = "\r".
+	lf = "\n".
+	crLf = cr + lf.
+	ws = space + tab + cr + lf.
+	noMinus = ANY - "-".
+
+PRAGMAS
+	Comment = "<!" {ws} "--" { noMinus | crLf | "-" noMinus } "--" {ws} ">". (. System.out.println(la.val); .)

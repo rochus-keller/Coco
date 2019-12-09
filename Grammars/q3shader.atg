@@ -1,0 +1,249 @@
+COMPILER Q3Shader
+
+CHARACTERS
+  letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".
+  digit = "0123456789".
+  cr  = '\r'.
+  lf  = '\n'.
+  tab = '\t'.
+
+TOKENS
+  path  = letter { letter | digit | '/' | '_' | '.' | '-' }.
+  number = [ '-' ] digit { digit } [ '.' { digit } ].
+
+COMMENTS FROM "/*" TO "*/" NESTED
+COMMENTS FROM "//" TO cr lf
+
+IGNORE cr + lf + tab
+
+PRODUCTIONS
+
+Path
+=
+  path
+.
+
+Number
+=
+  number
+.
+
+GeneratorFunction
+=
+  ( "sin"
+  | "triangle"
+  | "square"
+  | "sawtooth"
+  | "inversesawtooth"
+  | "random"
+  | "noise"
+  )
+.
+
+BlendMode
+=
+  ( "GL_ZERO"
+  | "GL_ONE"
+  | "GL_SRC_COLOR"
+  | "GL_ONE_MINUS_SRC_COLOR"
+  | "GL_DST_COLOR"
+  | "GL_ONE_MINUS_DST_COLOR"
+  | "GL_SRC_ALPHA"
+  | "GL_ONE_MINUS_SRC_ALPHA"
+  | "GL_DST_ALPHA"
+  | "GL_ONE_MINUS_DST_ALPHA"
+  )
+.
+
+RgbGen
+=
+  "rgbGen"
+  ( "identityLighting"
+  | "identity"
+  | "entity"
+  | "oneMinusEntity"
+  | "vertex"
+  | "oneMinusVertex"
+  | "exactVertex"
+  | ( "lightingDiffuse" | "LightingDiffuse" )
+  | "lightingSpecular"
+  | "wave"
+    GeneratorFunction Number /*base*/ Number /*amplitude*/ Number /*phase*/ Number /*frequency*/
+  | "const"
+    '(' Number /*color.x*/ Number /*color.y*/ Number /*color.z*/ ')'
+  )
+.
+
+AlphaGen
+=
+  "alphaGen"
+  ( "identityLighting"
+  | "identity"
+  | "entity"
+  | "oneMinusEntity"
+  | "vertex"
+  | "oneMinusVertex"
+  | "exactVertex"
+  | "lightingDiffuse"
+  | "LightingDiffuse"
+  | "lightingSpecular"
+  | "wave"
+    GeneratorFunction Number /*base*/ Number /*amplitude*/ Number /*phase*/ Number /*frequency*/
+  | "const"
+    Number /*alpha*/
+  | "portal"
+    Number /*range*/
+  )
+.
+
+TcGen
+=
+  "tcGen"
+  ( "base"
+  | "lightmap"
+  | "environment"
+  | "vector"
+    '(' Number /*u.x*/ Number /*u.y*/ Number /*u.z*/ ')'
+    '(' Number /*v.x*/ Number /*v.y*/ Number /*v.z*/ ')'
+  )
+.
+
+TcMod
+=
+  "tcMod"
+  ( "rotate"
+    Number /*rate*/
+  | "scale"
+    Number /*scale.x*/ Number /*scale.y*/
+  | "scroll"
+    Number /*rate.x*/ Number /*rate.y*/
+  | "stretch"
+    GeneratorFunction Number /*base*/ Number /*amplitude*/ Number /*phase*/ Number /*frequency*/
+  | "transform"
+    Number /*u.x*/ Number /*u.y*/ Number /*v.x*/ Number/*v.y*/ Number /*o.x*/ Number /*o.y*/
+  | "turb"
+    Number /*base*/ Number /*amplitude*/ Number /*phase*/ Number /*frequency*/
+  | "entityTranslate"
+  )
+.
+
+AlphaFunc
+=
+  "alphaFunc"
+  ( "GT0"
+  | "LT128"
+  | "GE128"
+  ) .
+
+Stage
+=
+  '{'
+  { "map"
+    ( "$lightmap"
+    | ( "$whiteimage" | "*white" )
+    | Path
+    )
+  | "clampmap" Path
+  | "animMap" Number /*msecs*/
+    Path
+    { Path }
+  | "blendFunc"
+    ( "add"
+    | "filter"
+    | "blend"
+    | BlendMode /*srcBlend*/ BlendMode /*destBlend*/
+    )
+  | RgbGen
+  | AlphaGen
+  | TcGen
+  | TcMod
+  | AlphaFunc
+  | "depthFunc" ( "equal" | "lequal" | "disable" )
+  | "depthWrite"
+  | "detail"
+  }
+  '}'
+.
+
+SkyParms
+=
+  ( "skyParms" | "skyparms" )
+  ( Path /*farBox*/ | '-' )
+  Number /*cloudHeight*/
+  ( Path /*nearBox*/ | '-' )
+.
+
+DeformVertexes
+=
+  "deformVertexes"
+  ( "wave"
+    Number /*div*/ GeneratorFunction Number /*base*/ Number /*amplitude*/ Number /*phase*/ Number /*frequency*/
+  | "normal"
+    Number /*div*/
+    ( Number
+    | GeneratorFunction Number /*base*/ Number /*amplitude*/ Number /*frequency*/
+    )
+  | "move"
+    Number /*dir.x*/ Number /*dir.y*/ Number /*dir.z*/ GeneratorFunction Number /*base*/ Number /*amplitude*/ Number /*phase*/ Number /*frequency*/
+  | "bulge" Number Number Number
+  | "autoSprite"
+  | "autoSprite2"
+  | "projectionShadow"
+  )
+.
+
+FogParms
+=
+  "fogparms"
+  '(' Number /*color.x*/ Number /*color.y*/ Number /*color.z*/ ')' Number /*opaqueDist*/
+.
+
+SurfaceParm
+=
+  "surfaceparm"
+  ( "alphashadow" | "areaportal" | "clusterportal" | "donotenter" | "flesh" | "fog" | "lava"
+  | "metalsteps" | "nodamage" | "nodlight" | "nodraw" | "nodrop" | "noimpact" | "nomarks"
+  | "nolightmap" | "nosteps" | "nonsolid" | "origin" | "playerclip" | "slick" | "slime"
+  | "structural" | "trans" | "water" | "pointlight" | "forcefield" | "shotclip" | "sky"
+  | "monsterclip" | "hint" | "ladder" | "detail"
+  )
+.
+
+ShaderDecl
+=
+  Path
+  '{'
+  { SkyParms
+  | Stage
+  | DeformVertexes
+  | FogParms
+  | "cull" ( "front" | "back" | "disable" | "none" )
+  | "sort" ( Number | "portal" | "sky" | "opaque" | "banner" | "underwater" | "additive" | "nearest" )
+  | "nopicmip"
+  | "nomipmaps"
+  | "polygonOffset"
+  | "portal"
+  | "entityMergable"
+  | "tessSize" Number
+  | "q3map_backshader" Path
+  | "q3map_globaltexture"
+  | "q3map_sun" Number Number Number Number Number Number
+  | "light" Number
+  | "q3map_surfacelight" Number
+  | "q3map_lightimage" Path
+  | "q3map_lightsubdivide" Number
+  | "q3map_backsplash" Number Number
+  | SurfaceParm
+  | "qer_editorimage" Path
+  | "qer_nocarve"
+  | "qer_trans" Number
+  }
+  '}'
+.
+
+Q3Shader
+=
+  { ShaderDecl }
+.
+
+END Q3Shader.

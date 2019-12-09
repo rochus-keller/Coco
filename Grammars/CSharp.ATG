@@ -1,0 +1,1064 @@
+using System.Collections;
+using System.Text;
+using System.Reflection;
+
+COMPILER CS
+
+enum TypeKind {simple, array, pointer}
+
+/*------------------------- modifier handling -----------------------------*/
+
+[Flags]
+enum Modifier {
+	/* available modifiers (reserve one bit per modifier) */
+	@new     = 0x0001, @public = 0x0002, @protected= 0x0004, @internal = 0x0008, 
+	@private = 0x0010, @unsafe = 0x0020, @static   = 0x0040, @readonly = 0x0080,
+	@volatile= 0x0100, @virtual= 0x0200, @sealed   = 0x0400, @override = 0x0800,
+	@abstract= 0x1000, @extern = 0x2000,
+
+	/* sets of modifiers that can be attached to certain program elements    *
+	 * e.g., "constants" marks all modifiers that may be used with constants */
+	none          = 0x0000,
+	constants     = @new|@public|@protected|@internal|@private,                                     //0x001f
+	nonClassTypes = @new|@public|@protected|@internal|@private|@unsafe|@static,                     //0x007f
+	fields        = @new|@public|@protected|@internal|@private|@unsafe|@static|@readonly|@volatile, //0x01ff
+	classes       = @new|@public|@protected|@internal|@private|@unsafe|@sealed|@abstract,           //0x143f
+	destructors   = @unsafe|@extern,                                                                //0x2020
+	constructors  = @public|@protected|@internal|@private|@unsafe|@extern,                          //0x203e
+	operators     = @public|@unsafe|@static|@extern,                                                //0x2062
+	indexers      = @new|@public|@protected|@internal|@private|@unsafe|@virtual|@sealed|@override|@abstract|@extern,         //0x3e3f
+	propEvntMeths = @new|@public|@protected|@internal|@private|@unsafe|@static|@virtual|@sealed|@override|@abstract|@extern, //0x3e7f
+	all           = 0x3fff
+}
+
+class Modifiers {
+	private Modifier cur = Modifier.none;
+	private Parser parser;
+	
+	public Modifiers(Parser parser) {
+		this.parser = parser;
+	}
+	
+	public void Add (Modifier m) {
+		if ((cur & m) == 0) cur |= m;
+		else parser.Error("modifier " + m + " already defined");
+	}
+	
+	public void Add (Modifiers m) { Add(m.cur); }
+
+	public bool IsNone { get { return cur == Modifier.none; } }
+
+	public void Check (Modifier allowed) {
+		Modifier wrong = cur & (allowed ^ Modifier.all);
+		if (wrong != Modifier.none)
+		  parser.Error("modifier(s) " + wrong + " not allowed here");
+  }
+}
+
+/*----------------------------- token sets -------------------------------*/
+
+const int maxTerminals = 160;  // set size
+
+static BitArray NewSet(params int[] values) {
+	BitArray a = new BitArray(maxTerminals);
+	foreach (int x in values) a[x] = true;
+	return a;
+}
+
+static BitArray
+	unaryOp      = NewSet(_plus, _minus, _not, _tilde, _inc, _dec, _true, _false),
+	binaryOp     = NewSet(_plus, _minus, _times, _div, _mod, _and, _or, _xor,
+	               _lshift, _rshift, _eq, _neq, _gt, _lt, _gte, _lte),
+	typeKW       = NewSet(_char, _bool, _object, _string, _sbyte, _byte, _short,
+	               _ushort, _int, _uint, _long, _ulong, _float, _double, _decimal),
+	unaryHead    = NewSet(_plus, _minus, _not, _tilde, _times, _inc, _dec, _and),
+	assnStartOp  = NewSet(_plus, _minus, _not, _tilde, _times),
+	castFollower = NewSet(_tilde, _not, _lpar, _ident,
+	               /* literals */
+	               _intCon, _realCon, _charCon, _stringCon,
+	               /* any keyword expect as and is */
+	               _abstract, _base, _bool, _break, _byte, _case, _catch,
+				   _char, _checked, _class, _const, _continue, _decimal, _default,
+				   _delegate, _do, _double, _else, _enum, _event, _explicit,
+				   _extern, _false, _finally, _fixed, _float, _for, _foreach,
+				   _goto, _if, _implicit, _in, _int, _interface, _internal,
+				   _lock, _long, _namespace, _new, _null, _object, _operator,
+				   _out, _override, _params, _private, _protected, _public,
+				   _readonly, _ref, _return, _sbyte, _sealed, _short, _sizeof,
+				   _stackalloc, _static, _string, _struct, _switch, _this, _throw,
+				   _true, _try, _typeof, _uint, _ulong, _unchecked, _unsafe,
+                   _ushort, _usingKW, _virtual, _void, _volatile, _while
+	               );
+
+/*---------------------------- auxiliary methods ------------------------*/
+
+void Error (string s) {
+	if (errDist >= minErrDist) errors.SemErr(la.line, la.col, s);
+	errDist = 0;
+}
+
+bool IsTypeCast () {
+	if (la.kind != _lpar) return false;
+	if (IsSimpleTypeCast()) return true;
+	return GuessTypeCast();
+}
+
+// "(" typeKW ")"
+bool IsSimpleTypeCast () {
+	// assert: la.kind == _lpar
+	scanner.ResetPeek();
+	Token pt1 = scanner.Peek();
+	Token pt = scanner.Peek();
+	return typeKW[pt1.kind] && pt.kind == _rpar;
+}
+
+// "(" Type ")" castFollower
+bool GuessTypeCast () {
+	// assert: la.kind == _lpar
+	string id;
+	scanner.ResetPeek();
+	Token pt = scanner.Peek();
+	if (typeKW[pt.kind]) {
+		pt = scanner.Peek();
+	} else if (pt.kind==_void) {
+		pt = scanner.Peek();
+		if (pt.kind != _times) {
+			return false;
+		}
+		pt = scanner.Peek();
+	} else if(IsQualident(ref pt, out id)) {
+		// nothing to do
+	} else {
+		return false;
+	}
+	if (IsPointerOrDims(ref pt) && pt.kind==_rpar)
+	{
+		pt = scanner.Peek(); // check successor
+		return castFollower[pt.kind];
+	} else {
+		return false;
+	}
+}
+
+/* Checks whether the next sequence of tokens is a qualident *
+ * and returns the qualident string                          *
+ * !!! Proceeds from current peek position !!!               */
+bool IsQualident (ref Token pt, out string qualident) {
+	qualident = "";
+	if (pt.kind == _ident) {
+		qualident = pt.val;
+		pt = scanner.Peek();
+		while (pt.kind == _dot) {
+			pt = scanner.Peek();
+			if (pt.kind != _ident) return false;
+			qualident += "." + pt.val;
+			pt = scanner.Peek();
+		}
+		return true;
+	} else return false;
+}
+
+// Return the n-th token after the current lookahead token
+Token Peek (int n) {
+	scanner.ResetPeek();
+	Token x = la;
+	while (n > 0) { x = scanner.Peek(); n--; }
+	return x;
+}
+
+/*-----------------------------------------------------------------*
+ * Resolver routines to resolve LL(1) conflicts:                   *                                                  *
+ * These routines return a boolean value that indicates            *
+ * whether the alternative at hand shall be choosen or not.        *
+ * They are used in IF ( ... ) expressions.                        *       
+ *-----------------------------------------------------------------*/
+
+// ident "="
+bool IsAssignment () {
+	return la.kind == _ident && Peek(1).kind == _assgn;
+}
+
+// ident ("," | "=" | ";")
+bool IsFieldDecl () {
+	int peek = Peek(1).kind;
+	return la.kind == _ident && 
+	       (peek == _comma || peek == _assgn || peek == _scolon);
+}
+
+/* True, if the comma is not a trailing one, *
+ * like the last one in: a, b, c,            */
+bool NotFinalComma () {
+	int peek = Peek(1).kind;
+	return la.kind == _comma && peek != _rbrace && peek != _rbrack;
+}
+
+// "void" "*"
+bool NotVoidPointer () {
+	return la.kind == _void && Peek(1).kind != _times;
+}
+
+// ("checked" | "unchecked") "{"
+bool UnCheckedAndLBrace () {
+	return la.kind == _checked || la.kind == _unchecked &&
+	       Peek(1).kind == _lbrace;
+}
+
+// "." ident
+bool DotAndIdent () {
+	return la.kind == _dot && Peek(1).kind == _ident;
+}
+
+// ident ":"
+bool IsLabel () {
+	return la.kind == _ident && Peek(1).kind == _colon;
+}
+
+// ident "("
+bool IdentAndLPar () {
+	return la.kind == _ident && Peek(1).kind == _lpar;
+}
+
+// "[" "assembly"
+bool IsGlobalAttrTarget () {
+	Token pt = Peek(1);
+	return la.kind == _lbrack && pt.kind == _ident && (pt.val == "assembly" || pt.val == "module");
+}
+
+// "[" ("," | "]")
+bool IsDims () {
+	int peek = Peek(1).kind;
+	return la.kind == _lbrack && (peek == _comma || peek == _rbrack);
+}
+
+// "*" | "[" ("," | "]")
+bool IsPointerOrDims () {
+	return la.kind == _times || IsDims();
+}
+
+// skip: { "[" { "," } "]" | "*" }
+// !!! Proceeds from current peek position !!!
+bool IsPointerOrDims (ref Token pt) {
+	for (;;) {
+		if (pt.kind == _lbrack) {
+			do pt = scanner.Peek();
+			while (pt.kind == _comma);
+			if (pt.kind != _rbrack) return false;
+		} else if (pt.kind != _times) break;
+		pt = scanner.Peek();
+	}
+	return true;
+}
+
+// Type ident (Type can be void*)
+bool IsLocalVarDecl () {
+	string ignore;
+	Token pt = la;
+	scanner.ResetPeek();
+	
+	if (typeKW[la.kind] || la.kind == _void) {
+	  pt = scanner.Peek();
+	  if (la.kind == _void && pt.kind != _times) { return false; }
+	} else if (la.kind == _ident && !IsQualident(ref pt, out ignore)) {
+		return false;
+	}
+	
+	return IsPointerOrDims(ref pt) && pt.kind == _ident;
+}
+
+
+
+/* True, if lookahead is a local attribute target specifier, *
+ * i.e. one of "event", "return", "field", "method",         *
+ *             "module", "param", "property", or "type"      */
+bool IsLocalAttrTarget () {
+	int cur = la.kind;
+	string val = la.val;
+	return cur == _event || cur == _return ||
+	       (Peek(1).kind == _colon &&
+	         (val == "field" || val == "method"   || val == "module" ||
+	          val == "param" || val == "property" || val == "type"));
+}
+
+/*------------------------------------------------------------------------*
+ *----- SCANNER DESCRIPTION ----------------------------------------------*
+ *------------------------------------------------------------------------*/
+
+CHARACTERS
+
+	tab                = '\u0009'. /*  9 = tabulator */
+	eol                = '\u000a'. /* 10 = line feed */
+	cr                 = '\u000d'. /* 13 = carriage return */
+	newLine            = cr + eol. /* Line separator character (U+2028) + Paragraph separator character (U+2029) */
+
+	letter             = 'A' .. 'Z' + 'a' .. 'z' + '_'.
+	digit              = "0123456789".
+	hexDigit           = digit + "ABCDEFabcdef".
+	notDigit           = ANY - digit.
+
+	char               = ANY - "'" - '\\' - newLine.
+	verbatimStringChar = ANY - '"'.
+	regularStringChar  = ANY - '"' - '\\' - newLine.
+	notNewLine         = ANY - newLine .
+	ws                 = " " + tab + '\u000b' + '\u000c'. /* Any character with Unicode class Zs */
+
+
+TOKENS
+
+	ident = ['@'] letter { letter | digit }.
+  /*--------------------------------------------------------------------------------*/
+	intCon =
+		( digit {digit} | digit {digit} CONTEXT ("." notDigit)
+		| ("0x" | "0X") hexDigit {hexDigit}
+		)
+		["U" | "u" | "L" | "l" | "UL" | "Ul" | "uL" | "ul" | "LU" | "Lu" | "lU" | "lu"].
+  /*--------------------------------------------------------------------------------*/
+	realCon =
+		"." digit {digit} 
+		[("e" | "E") ["+" | "-"] digit {digit}] 
+		["F" | "f" | "D" | "d" | "M" | "m"]
+	| digit {digit} 
+		( "." digit {digit} 
+			[("e" | "E" ) ["+" | "-"] digit {digit} ] 
+			["F" | "f" | "D" | "d" | "M" | "m"]
+		| ("e" | "E") ["+" | "-"] digit {digit}
+			["F" | "f" | "D" | "d" | "M" | "m"]
+		| "F" | "f" | "D" | "d" | "M" | "m"
+		).
+  /*--------------------------------------------------------------------------------*/
+	charCon =
+		"'" (	char
+				| "\\\'" | "\\\"" | "\\\\" | "\\0" | "\\a" | "\\b" | "\\f" | "\\n" | "\\r" | "\\t" | "\\v"
+				| "\\x" hexDigit [hexDigit] [hexDigit] [hexDigit]
+				| "\\u" hexDigit hexDigit hexDigit hexDigit
+				| "\\U" hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit
+				) 
+		"'".
+  /*--------------------------------------------------------------------------------*/
+	stringCon =
+		"\""	{ regularStringChar
+					| "\\\'" | "\\\"" | "\\\\" | "\\0" | "\\a" | "\\b" | "\\f" | "\\n" | "\\r" | "\\t" | "\\v"
+					| "\\x" hexDigit [hexDigit] [hexDigit] [hexDigit]
+					| "\\u" hexDigit hexDigit hexDigit hexDigit
+					| "\\U" hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit
+					} 
+		"\""
+	| "@\"" {verbatimStringChar | "\"\""} "\"".
+
+
+	/*----- keyword names needed in LL(1) resolvers -----*/
+	abstract   = "abstract".
+	as         = "as".
+	base       = "base".
+	bool       = "bool".
+	break      = "break".
+	byte       = "byte".
+	case       = "case".
+	catch      = "catch".
+	char       = "char".
+	checked    = "checked".
+	class      = "class".
+	const      = "const".
+	continue   = "continue".
+	decimal    = "decimal".
+	default    = "default".
+	delegate   = "delegate".
+	do         = "do".
+	double     = "double".
+	else       = "else".
+	enum       = "enum".
+	event      = "event".
+	explicit   = "explicit".
+	extern     = "extern".
+	false      = "false".
+	finally    = "finally".
+	fixed      = "fixed".
+	float      = "float".
+	for        = "for".
+	foreach    = "foreach".
+	goto       = "goto".
+	if         = "if".
+	implicit   = "implicit".
+	in         = "in".
+	int        = "int".
+	interface  = "interface".
+	internal   = "internal".
+	is         = "is".
+	lock       = "lock".
+	long       = "long".
+	namespace  = "namespace".
+	new        = "new".
+	null       = "null".
+	object     = "object".
+	operator   = "operator".
+	out        = "out".
+	override   = "override".
+	params     = "params".
+	private    = "private".
+	protected  = "protected".
+	public     = "public".
+	readonly   = "readonly".
+	ref        = "ref".
+	return     = "return".
+	sbyte      = "sbyte".
+	sealed     = "sealed".
+	short      = "short".
+	sizeof     = "sizeof".
+	stackalloc = "stackalloc".
+	static     = "static".
+	string     = "string".
+	struct     = "struct".
+	switch     = "switch".
+	this       = "this".
+	throw      = "throw".
+	true       = "true".
+	try        = "try".
+	typeof     = "typeof".
+	uint       = "uint".
+	ulong      = "ulong".
+	unchecked  = "unchecked".
+	unsafe     = "unsafe".
+	ushort     = "ushort".
+	usingKW    = "using".
+	virtual    = "virtual".
+	void       = "void".
+	volatile   = "volatile".
+	while      = "while".
+
+	/*----- operators and special characters needed in LL(1) resolvers --------------*/
+	and    = "&".
+	assgn  = "=".
+	colon  = ":".
+	comma  = ",".
+	dec    = "--".
+	div    = "/".
+	dot    = ".".
+	eq     = "==".
+	gt     = ">".
+	gte    = ">=".
+	inc    = "++".
+	lbrace = "{".
+	lbrack = "[".
+	lpar   = "(".
+	lshift = "<<".
+	lt     = "<".
+	lte    = "<=".
+	minus  = "-".
+	mod    = "%".
+	neq    = "!=".
+	not    = "!".
+	or     = "|".
+	plus   = "+".
+	rbrace = "}".
+	rbrack = "]".
+	rpar   = ")".
+	rshift = ">>".
+	scolon = ";".
+	tilde  = "~".
+	times  = "*".	
+	xor    = "^".
+
+
+PRAGMAS
+
+	/* Preprocessor directives.                                               *
+	 * The exact parsing of their syntax is left for later processing         */
+
+	ppDefine  = "#" {ws} "define" {notNewLine} newLine.
+	ppUndef   = "#" {ws} "undef" {notNewLine} newLine.
+	ppIf      = "#" {ws} "if" {notNewLine} newLine.
+	ppElif    = "#" {ws} "elif" {notNewLine} newLine.
+	ppElse    = "#" {ws} "else" {notNewLine} newLine.
+	ppEndif   = "#" {ws} "endif" {notNewLine} newLine.
+	ppLine    = "#" {ws} "line" {notNewLine} newLine.
+	ppError   = "#" {ws} "error" {notNewLine} newLine.
+	ppWarning = "#" {ws} "warning" {notNewLine} newLine.
+	ppRegion  = "#" {ws} "region" {notNewLine} newLine.
+	ppEndReg  = "#" {ws} "endregion" {notNewLine} newLine.
+
+
+// ****************************************************************************
+// If you would like to use C# comments in your grammar, use
+// pragmas for that purpose and remove the COMMENTS.
+//
+// The pragma for the block comment looks like this:
+//     cBlockCom = "/*" { "/" | blockComCh | "*"{"*"} blockComCh } "*"{"*"}"/".
+// where blockComCh is a character set (CHARACTERS section) defined as:
+//     blockComCh = ANY - '*' - '/'.
+//
+// The line comment is simpler:
+//     cLineCom = "//" { notNewLine } newLine.
+// where newLine and notNewLine are character sets (already defined in the
+// CHARACTERS section).
+// ****************************************************************************
+
+COMMENTS FROM "/*" TO "*/"
+COMMENTS FROM "//" TO eol
+
+IGNORE eol + cr + tab
+
+PRODUCTIONS
+
+/*------------------------------------------------------------------------*
+ *--------------------------- Declarations -------------------------------*
+ *------------------------------------------------------------------------*/
+
+CS                                     
+=
+  {UsingDirective}
+  {IF (IsGlobalAttrTarget()) GlobalAttributes} 
+  {NamespaceMember}
+.
+/*------------------------------------------------------------------------*/
+UsingDirective                         (. string ns, alias = null; .)
+= "using" 
+	[ IF (IsAssignment()) ident          (. alias = t.val; .)
+      "="]
+  Qualident<out ns>
+  ";"
+.
+/*------------------------------------------------------------------------*/
+NamespaceMember                        (. Modifiers m = new Modifiers(this); 
+                                          string id; .)
+= "namespace" Qualident<out id>
+  "{" {UsingDirective} {NamespaceMember} "}" [";"] 
+| {Attributes} {TypeModifier<m>} TypeDecl<m>
+.
+/*------------------------------------------------------------------------*/
+TypeDecl<Modifiers m>                  (. TypeKind dummy; .)
+=                                      (. m.Check(Modifier.classes); .) 
+  "class" ident [ClassBase] ClassBody [";"]
+|                                      (. m.Check(Modifier.nonClassTypes); .)
+  ( "struct" ident [Base] StructBody  [";"]
+  | "interface" ident [Base] "{" {InterfaceMember} "}" [";"]
+  | "enum" ident [":" IntType] EnumBody [";"]
+  | "delegate" (IF (NotVoidPointer()) "void" | Type<out dummy>) ident "(" [FormalParams] ")" ";"
+  )
+.
+/*------------------------------------------------------------------------*/
+ClassBase                              (. string id; .)
+= ":" ClassType
+  {"," Qualident<out id>}
+.
+/*------------------------------------------------------------------------*/
+Base                                   (. string id; .)
+= ":" Qualident<out id> {"," Qualident<out id>} .
+/*------------------------------------------------------------------------*/
+ClassBody
+= "{"
+      { {Attributes}                   (. Modifiers m = new Modifiers(this); .)
+        {MemberModifier<m>} 
+        ClassMember<m> 
+      } 
+  "}"
+.
+/*------------------------------------------------------------------------*/
+StructBody
+= "{"
+      { {Attributes}                   (. Modifiers m = new Modifiers(this); .)
+        {MemberModifier<m>} 
+        StructMember<m> 
+      } 
+  "}"
+.
+/*------------------------------------------------------------------------*/
+EnumBody 
+= "{" [EnumMember {IF (NotFinalComma()) "," EnumMember} [","] ] "}" .
+/*------------------------------------------------------------------------*/
+ClassMember<Modifiers m>
+= StructMember<m>
+| "~" ident "(" ")" (Block | ";").
+/*------------------------------------------------------------------------*/
+StructMember<Modifiers m>              (. string id; TypeKind dummy; .)
+= /*--- constant declaration: */       (. m.Check(Modifier.constants); .)
+  "const" Type<out dummy> ident "=" Expr { "," ident "=" Expr } ";"
+| /*--- void method (procedure) declaration: */
+  IF (NotVoidPointer())                (. m.Check(Modifier.propEvntMeths); .)
+  "void" Qualident<out id> "(" [ FormalParams ] ")" ( Block | ";" )
+| /*--- event declaration: */          (. m.Check(Modifier.propEvntMeths); .)
+  "event" Type<out dummy> 
+  ( IF (IsFieldDecl()) Field {"," Field} ";"
+  | Qualident<out id> "{" EventAccessors "}"
+  )
+| /*--- constructor or static constructor declaration: */
+  IF (IdentAndLPar())                  (. m.Check(Modifier.constructors | Modifier.@static); .)
+  ident "(" [                          (. m.Check(Modifier.constructors); .)
+              FormalParams
+            ]
+        ")"
+        [                              (. m.Check(Modifier.constructors); .)
+          ConstructorCall
+        ] (Block | ";")  
+| /*--- conversion operator declaration: */
+                                       (. m.Check(Modifier.operators);
+                                          if (m.IsNone) Error("at least one modifier must be set"); 
+                                        .)
+  ("implicit" | "explicit") "operator"
+  Type<out dummy> "(" Type<out dummy> ident ")" (Block | ";")
+| /*--- inner type declaration: */
+  TypeDecl<m>
+| Type<out dummy>
+  ( /*--- operator declaration: */     (. Token op;
+                                          m.Check(Modifier.operators);
+                                          if (m.IsNone) Error("at least one modifier must be set");
+                                        .)
+    "operator" OverloadableOp<out op> 
+    "(" Type<out dummy> ident 
+        ( "," Type<out dummy> ident    (. if (!binaryOp[op.kind]) Error("too many operands for unary operator"); .)
+        |                              (. if (!unaryOp[op.kind]) Error("too few operands for binary operator"); .)
+        )
+    ")" (Block | ";")
+    
+  | /*--- field declaration: */
+    IF (IsFieldDecl())                 (. m.Check(Modifier.fields); .)
+    Field {"," Field} ";"
+
+  | /*--- unqualified indexer declaration (without interface name): */
+                                       (. m.Check(Modifier.indexers); .)
+    "this" "[" FormalParams "]" "{" Accessors "}"
+    
+  | Qualident<out id> 
+    ( /*--- "not void" method (function) declaration: */
+                                       (. m.Check(Modifier.propEvntMeths); .)
+      "(" [FormalParams] ")" (Block | ";")
+        
+    | /*--- property declaration: */  
+      "{" Accessors "}"
+
+    | /*--- qualified indexer declaration (with interface name): */
+                                       (. m.Check(Modifier.indexers); .)
+      "." "this" "[" FormalParams "]" "{" Accessors "}"
+    )
+  )
+.
+/*------------------------------------------------------------------------*/
+InterfaceMember                        (. TypeKind dummy; .)
+= {Attributes} ["new"]
+  ( IF (NotVoidPointer()) "void" ident "("
+    [FormalParams] ")" ";"
+  | Type<out dummy> 
+		( ident ( "(" [FormalParams] ")" ";" 
+						| "{" InterfaceAccessors "}"
+						)
+		| "this" "[" FormalParams "]" "{" InterfaceAccessors "}"
+		)
+	| "event" Type<out dummy> ident ";"
+  )
+.
+/*------------------------------------------------------------------------*/
+EnumMember
+= {Attributes} ident ["=" Expr]
+.
+/*------------------------------------------------------------------------*/
+Field
+= ident ["=" Init].
+/*------------------------------------------------------------------------*/
+LocalVarDecl                           (. TypeKind dummy; .)
+= Type<out dummy> LocalVar {"," LocalVar}
+.
+/*------------------------------------------------------------------------*/
+LocalVar                               (. TypeKind dummy; .)
+= ident [ "=" (Init | "stackalloc" Type<out dummy> "[" Expr "]") ]
+.
+/*------------------------------------------------------------------------*/
+Init 
+= Expr | ArrayInit
+.
+/*------------------------------------------------------------------------*/
+ArrayInit
+= "{" [Init {IF (NotFinalComma()) "," Init} [","] ] "}"
+.
+/*------------------------------------------------------------------------*/
+FormalParams                    
+= {Attributes}
+  ( Par ["," FormalParams]
+  | ParArray
+  )
+.
+/*------------------------------------------------------------------------*/
+Par                                    (. TypeKind dummy; .)
+= ["ref" | "out"] Type<out dummy> ident
+.
+/*------------------------------------------------------------------------*/
+ParArray                               (. TypeKind type; .)
+= "params" Type<out type> ident        (. if (type != TypeKind.array) {
+                                            Error("params type must be an array");
+                                          }
+                                       .)
+. 
+/*------------------------------------------------------------------------*/
+ConstructorCall
+= ":" ("base" | "this") "(" [Argument {"," Argument} ] ")"
+.
+/*------------------------------------------------------------------------*/
+Argument
+= ["ref" | "out"] Expr
+.
+/*------------------------------------------------------------------------*/
+Accessors
+= {Attributes}
+  ( IF (la.val == "get") GetAccessor [{Attributes} SetAccessor]
+  | IF (la.val == "set") SetAccessor [{Attributes} GetAccessor]
+  | ident                              (. Error("get or set accessor declaration expected"); .)
+  ).
+/*------------------------------------------------------------------------*/
+EventAccessors
+= {Attributes}
+  (	IF (la.val == "add")    AddAccessor    {Attributes} RemoveAccessor
+  |	IF (la.val == "remove") RemoveAccessor {Attributes} AddAccessor
+  | ident                              (. Error("add or remove accessor declaration expected"); .)
+  ).
+/*------------------------------------------------------------------------*/
+InterfaceAccessors                     (. bool getFound = false, setFound = false; .)
+= {Attributes}
+  ( IF (la.val == "get") ident         (. getFound = true; .)
+  | IF (la.val == "set") ident         (. setFound = true; .)
+  | ident                              (. Error("set or get expected"); .)
+  ) ";" 
+  [ {Attributes} 
+    ( IF (la.val == "get") ident       (. if (getFound) Error("get already declared"); .)
+	  | IF (la.val == "set") ident       (. if (setFound) Error("set already declared"); .)
+	  | ident                            (. Error("set or get expected"); .)
+    ) ";" 
+  ]
+.
+/*------------------------------------------------------------------------*/
+GetAccessor
+= ident                                (. if (t.val != "get") Error("get expected"); .)
+  (Block | ";").
+/*------------------------------------------------------------------------*/
+SetAccessor
+= ident                                (. if (t.val != "set") Error("set expected"); .)
+  (Block | ";")
+.
+/*------------------------------------------------------------------------*/
+AddAccessor
+= ident                                (. if (t.val != "add") Error("add expected"); .)
+  Block
+.
+/*------------------------------------------------------------------------*/
+RemoveAccessor
+= ident                                (. if (t.val != "remove") Error("remove expected"); .)
+  Block.
+/*------------------------------------------------------------------------*/
+GlobalAttributes 
+= "[" ident                            (. if (t.val != "assembly" && t.val != "module") Error("global attribute target specifier (\"assembly\" or \"module\") expected"); .) 
+      ":" Attribute {IF (NotFinalComma()) "," Attribute} [","]
+  "]".
+/*------------------------------------------------------------------------*/
+Attributes
+= "[" /*--- attribute target specifier: */
+      [ IF (IsLocalAttrTarget())
+        ( "event" | "return"
+        | ident                        (. if (t.val != "field"    && t.val != "method" &&
+                                              t.val != "module"   && t.val != "param"  &&
+                                              t.val != "property" && t.val != "type")
+                                            Error("attribute target specifier (event, return, field," +
+                                                  "method, module, param, property, or type) expected");
+                                        .)
+        ) ":" 
+      ] 
+      /*--- attribute list: */
+      Attribute {IF (NotFinalComma()) "," Attribute} [","] 
+  "]"
+.
+/*------------------------------------------------------------------------*/
+Attribute                              (. string id; .)
+= Qualident<out id> [AttributeArguments]
+.
+/*------------------------------------------------------------------------*/
+AttributeArguments                     (. bool nameFound = false; .)
+= "(" [ [ IF (IsAssignment())          (. nameFound = true; .)
+          ident "=" 
+        ] Expr
+        { "," ( IF (IsAssignment())    (. nameFound = true; .)
+                ident "="
+              |                        (. if (nameFound) Error("no positional argument after named argument"); .)
+              ) Expr
+        }
+      ]
+  ")"
+.
+/*------------------------------------------------------------------------*/
+TypeModifier<Modifiers m>
+= "new"                                (. m.Add(Modifier.@new); .)
+| "public"                             (. m.Add(Modifier.@public); .)
+| "protected"                          (. m.Add(Modifier.@protected); .)
+| "internal"                           (. m.Add(Modifier.@internal); .)
+| "private"                            (. m.Add(Modifier.@private); .)
+| "unsafe"                             (. m.Add(Modifier.@unsafe); .)
+| "abstract"                           (. m.Add(Modifier.@abstract); .)
+| "sealed"                             (. m.Add(Modifier.@sealed); .)
+.
+/*------------------------------------------------------------------------*/
+MemberModifier<Modifiers m>
+= "abstract"                           (. m.Add(Modifier.@abstract); .)
+| "extern"                             (. m.Add(Modifier.@extern); .)
+| "internal"                           (. m.Add(Modifier.@internal); .)
+| "new"                                (. m.Add(Modifier.@new); .)
+| "override"                           (. m.Add(Modifier.@override); .)
+| "private"                            (. m.Add(Modifier.@private); .)
+| "protected"                          (. m.Add(Modifier.@protected); .)
+| "public"                             (. m.Add(Modifier.@public); .)
+| "readonly"                           (. m.Add(Modifier.@readonly); .)
+| "sealed"                             (. m.Add(Modifier.@sealed); .)
+| "static"                             (. m.Add(Modifier.@static); .)
+| "unsafe"                             (. m.Add(Modifier.@unsafe); .)
+| "virtual"                            (. m.Add(Modifier.@virtual); .)
+| "volatile"                           (. m.Add(Modifier.@volatile); .)
+.
+
+/*------------------------------------------------------------------------*
+ *-------------------------------- Types ---------------------------------*
+ *------------------------------------------------------------------------*/
+
+/* Attribute "type" is needed for error messages in EmbeddedStatement     *
+ * and for array creation expressions                                     */
+Type<out TypeKind type>                (. type = TypeKind.simple; .)
+= ( SimpleType 
+  | ClassType 
+  | "void" "*"                         (. type = TypeKind.pointer; .)
+  )
+  { IF (IsPointerOrDims()) 
+    ( "*"                              (. type = TypeKind.pointer; .)
+    | "[" {","} "]"                    (. type = TypeKind.array; .)
+    ) 
+  }
+.
+/*------------------------------------------------------------------------*/
+ClassType                              (. string id; .)
+= Qualident<out id> | "object" | "string"
+.
+/*------------------------------------------------------------------------*/
+SimpleType
+= IntType | "float" | "double" | "decimal" | "bool"
+.
+/*------------------------------------------------------------------------*/
+IntType
+= "sbyte" | "byte" | "short" | "ushort" | "int" | "uint" | "long" | "ulong" | "char"
+.
+/*------------------------------------------------------------------------*/
+Qualident<out string qualident>
+= ident                                (. qualident = t.val; .)
+  { IF (DotAndIdent()) "." ident       (. qualident += "." + t.val; .)
+  }
+.
+
+
+/*------------------------------------------------------------------------*
+ *------------------------------ Statements ------------------------------*
+ *------------------------------------------------------------------------*/
+
+Statement                              (. TypeKind dummy; .)
+= IF (IsLabel()) ident ":" Statement
+| "const" Type<out dummy> ident "=" Expr {"," ident "=" Expr} ";"
+| IF (IsLocalVarDecl()) LocalVarDecl ";"
+| EmbeddedStatement 
+  /* LL(1) confict between LocalVarDecl and StatementExpr: *
+   * ident {"." ident} { "[" ...                           */
+.
+/*------------------------------------------------------------------------*/
+EmbeddedStatement                      (. TypeKind type; .)
+= Block
+| ";"
+| IF (UnCheckedAndLBrace()) ("checked" | "unchecked") Block
+| StatementExpr ";"
+| "if" "(" Expr ")" EmbeddedStatement ["else" EmbeddedStatement]
+| "switch" "(" Expr ")" "{" {SwitchSection} "}"
+| "while" "(" Expr ")" EmbeddedStatement
+| "do" EmbeddedStatement "while" "(" Expr ")" ";"
+| "for" "(" [ForInit] ";" [Expr] ";" [ForInc] ")" EmbeddedStatement
+| "foreach" "(" Type<out type> ident "in" Expr ")" EmbeddedStatement
+| "break" ";"
+| "continue" ";"
+| "return" [Expr] ";"
+| "throw" [Expr] ";"
+| GotoStatement
+| TryStatement
+| "lock" "(" Expr ")" EmbeddedStatement
+| "using" "(" Resource ")" EmbeddedStatement
+| "unsafe" Block
+| "fixed" 
+  "(" Type<out type>                   (. if (type != TypeKind.pointer) Error("can only fix pointer types"); .)
+      ident "=" Expr {"," ident "=" Expr} 
+  ")" EmbeddedStatement
+.
+/*------------------------------------------------------------------------*/
+Block
+= "{" {Statement} "}".
+/*------------------------------------------------------------------------*/
+StatementExpr
+=                                      (. bool isAssignment = assnStartOp[la.kind] || IsTypeCast(); .)
+  Unary 
+  ( AssignOp Expr 
+  |                                    (. if (isAssignment) Error("error in assignment."); .)
+  )
+.
+/*------------------------------------------------------------------------*/
+AssignOp
+= "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "&=" | "|=" | "^=" | "<<=" | ">>="
+.
+/*------------------------------------------------------------------------*/
+SwitchSection
+= SwitchLabel { SwitchLabel } Statement { Statement }
+.
+/*------------------------------------------------------------------------*/
+SwitchLabel
+= "case" Expr ":" 
+| "default" ":"
+.
+/*------------------------------------------------------------------------*/
+ForInit
+= IF (IsLocalVarDecl()) LocalVarDecl
+| StatementExpr { "," StatementExpr }
+.
+/*------------------------------------------------------------------------*/
+ForInc
+= StatementExpr { "," StatementExpr }
+.
+/*------------------------------------------------------------------------*/
+GotoStatement
+= "goto" ( ident ";" | "case" Expr ";" | "default" ";" )
+.
+/*------------------------------------------------------------------------*/
+TryStatement
+= "try" Block
+  ( CatchClauses [ "finally" Block ]
+  | "finally" Block
+  )
+.
+/*------------------------------------------------------------------------*/
+CatchClauses
+= "catch"
+  ( Block
+  | "(" ClassType [ident] ")" Block [CatchClauses]
+  )
+.
+/*------------------------------------------------------------------------*/
+Resource
+= (	IF (IsLocalVarDecl()) LocalVarDecl
+  |	Expr                         
+  )
+.
+
+
+/*------------------------------------------------------------------------*
+ *----------------------------- Expressions ------------------------------*
+ *------------------------------------------------------------------------*/
+
+
+Expr
+= Unary
+  ( OrExpr ["?" Expr ":" Expr]
+  | AssignOp Expr
+  )
+.
+/*------------------------------------------------------------------------*/
+OrExpr
+= AndExpr {"||" Unary AndExpr}
+.
+/*------------------------------------------------------------------------*/
+AndExpr
+= BitOrExpr {"&&" Unary BitOrExpr}
+.
+/*------------------------------------------------------------------------*/
+BitOrExpr
+= BitXorExpr {"|" Unary BitXorExpr}
+.
+/*------------------------------------------------------------------------*/
+BitXorExpr
+= BitAndExpr {"^" Unary BitAndExpr}
+.
+/*------------------------------------------------------------------------*/
+BitAndExpr
+= EqlExpr {"&" Unary EqlExpr}
+.
+/*------------------------------------------------------------------------*/
+EqlExpr
+= RelExpr  {("!=" | "==") Unary RelExpr}
+.
+/*------------------------------------------------------------------------*/
+RelExpr                                (. TypeKind dummy; .)
+= ShiftExpr
+  { ("<" | ">" | "<=" | ">=") Unary ShiftExpr 
+  | ("is" | "as") Type<out dummy>
+  }
+.
+/*------------------------------------------------------------------------*/
+ShiftExpr
+= AddExpr {("<<" | ">>") Unary AddExpr}
+.
+/*------------------------------------------------------------------------*/
+AddExpr
+= MulExpr {( "+" | "-" ) Unary MulExpr}
+.
+/*------------------------------------------------------------------------*/
+MulExpr
+= {("*" | "/" | "%") Unary}
+.
+/*------------------------------------------------------------------------*/
+Unary                                  (. TypeKind dummy; .)
+=
+  { IF (unaryHead[la.kind] || IsTypeCast())
+    ( "+" | "-" | "!" | "~" | "*" | "++" | "--" | "&"
+	  | "(" Type<out dummy> ")" 
+      /* Problem:  "(" Type ")" from here and                     *
+       *           "(" Expr ")" from Primary                      *
+       *           are not distinguishable                        *
+       * Solution: (in IsTypeCast())                              *
+       * use external information from compiled assembly or guess */
+    )
+	} 
+  Primary
+.
+/*------------------------------------------------------------------------*/
+Primary                                (. TypeKind type; bool isArrayCreation = false; .)
+=
+  ( ident
+  | Literal
+  | "(" Expr ")"
+  | ( "bool"   | "byte"   | "char" | "decimal" | "double" /* predefined type member access */
+    | "float"  | "int"    | "long" | "object"  | "sbyte"
+    | "short"  | "string" | "uint" | "ulong"   | "ushort"
+    ) "." ident
+  | "this"
+  | "base" ( "." ident 
+           | "[" Expr {"," Expr} "]" 
+           )
+  | "new" Type<out type> 
+    ( /*--- delegate or object creation expression:                     *
+       * Note: a delegate creation expression allows only a single Expr *
+       *       not an argument list, but this is not checked here       */
+      "(" [Argument {"," Argument}] ")"
+    | /*--- array creation expr */     (. isArrayCreation = true; .)
+      "["  Expr {"," Expr} "]" {IF (IsDims())  "[" {","} "]"}  [ArrayInit] 
+    |                                  (. if (type != TypeKind.array) Error("array type expected");
+                                          isArrayCreation = true; .)
+      ArrayInit
+    )
+  | "typeof" "(" (IF (NotVoidPointer()) "void" | Type<out type>) ")"
+  | "sizeof" "(" Type<out type> ")"
+  | "checked" "(" Expr ")"
+  | "unchecked" "(" Expr ")"
+  )
+  
+  { "++" | "--" | "->" ident 
+  | "." ident
+  | "(" [Argument {"," Argument}] ")"
+  |                                    (. if (isArrayCreation) Error("element access not allow on array creation"); .)
+    "[" Expr {"," Expr} "]" 
+  }
+.
+/*------------------------------------------------------------------------*/
+Literal
+= intCon | realCon | charCon | stringCon | "true" | "false" | "null".
+/*------------------------------------------------------------------------*/
+OverloadableOp<out Token op>
+= ( /* unary operators */
+    "+"  | "-"  | "!"    | "~" | "++" | "--" | "true" | "false"
+    /* binary operators (plus +, -) */
+  | "*"  | "/"  | "%"    | "&" | "|"  | "^"  | "<<"   | ">>"
+  | "==" | "!=" | ">"    | "<" | ">=" | "<="
+  )                                    (. op = t; .)
+.
+
+END CS.
