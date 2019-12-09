@@ -100,7 +100,7 @@ int Tab::Num(Node *p) {
 
 void Tab::PrintSym(Symbol *sym) {
 	wchar_t *paddedName = Name(sym->name);
-	fwprintf(trace, L"%3d %14s %ls", sym->n, paddedName, nTyp[sym->typ]);
+	fwprintf(trace, L"%3d %-14ls %s", sym->n, paddedName, nTyp[sym->typ]);
 	coco_string_delete(paddedName);
 
 	if (sym->attrPos==NULL) fwprintf(trace, L" false "); else fwprintf(trace, L" true  ");
@@ -110,7 +110,7 @@ void Tab::PrintSym(Symbol *sym) {
 	} else
 		fwprintf(trace, L"            ");
 
-	fwprintf(trace, L"%5d %ls\n", sym->line, tKind[sym->tokenKind]);
+	fwprintf(trace, L"%5d %s\n", sym->line, tKind[sym->tokenKind]);
 }
 
 void Tab::PrintSymbolTable() {
@@ -343,21 +343,21 @@ void Tab::PrintNodes() {
 	Node *p;
 	for (int i=0; i<nodes->Count; i++) {
 		p = (Node*)((*nodes)[i]);
-		fwprintf(trace, L"%4d %ls ", p->n, (nTyp[p->typ]));
+		fwprintf(trace, L"%4d %s ", p->n, (nTyp[p->typ]));
 		if (p->sym != NULL) {
 			wchar_t *paddedName = Name(p->sym->name);
-			fwprintf(trace, L"%12s ", paddedName);
+			fwprintf(trace, L"%-12ls ", paddedName);
 			coco_string_delete(paddedName);
 		} else if (p->typ == Node::clas) {
 			CharClass *c = (CharClass*)(*classes)[p->val];
 			wchar_t *paddedName = Name(c->name);
-			fwprintf(trace, L"%12s ", paddedName);
+			fwprintf(trace, L"%-12ls ", paddedName);
 			coco_string_delete(paddedName);
 		} else fwprintf(trace, L"             ");
 		fwprintf(trace, L"%5d ", Ptr(p->next, p->up));
 
 		if (p->typ == Node::t || p->typ == Node::nt || p->typ == Node::wt) {
-			fwprintf(trace, L"             %5s", Pos(p->pos));
+			fwprintf(trace, L"             %5ls", Pos(p->pos));
 		} if (p->typ == Node::chr) {
 			fwprintf(trace, L"%5d %5d       ", p->val, p->code);
 		} if (p->typ == Node::clas) {
@@ -365,7 +365,7 @@ void Tab::PrintNodes() {
 		} if (p->typ == Node::alt || p->typ == Node::iter || p->typ == Node::opt) {
 			fwprintf(trace, L"%5d %5d       ", Ptr(p->down, false), Ptr(p->sub, false));
 		} if (p->typ == Node::sem) {
-			fwprintf(trace, L"             %5s", Pos(p->pos));
+			fwprintf(trace, L"             %5ls", Pos(p->pos));
 		} if (p->typ == Node::eps || p->typ == Node::any || p->typ == Node::sync) {
 			fwprintf(trace, L"                  ");
 		}
@@ -433,7 +433,7 @@ void Tab::WriteCharSet(CharSet *s) {
 		if (r->from < r->to) {
 			wchar_t *from = Ch(r->from);
 			wchar_t *to = Ch(r->to);
-			fwprintf(trace, L"%ls .. %ls ", from, to);
+			fwprintf(trace, L"%ls..%ls ", from, to);
 			delete [] from;
 			delete [] to;
 		}

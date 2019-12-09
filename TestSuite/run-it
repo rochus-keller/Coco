@@ -1,0 +1,6 @@
+#!/bin/sh
+for fn in *.ATG
+do
+    echo $fn
+    CocoR $fn
+done

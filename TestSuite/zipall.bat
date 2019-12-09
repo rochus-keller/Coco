@@ -1,0 +1,1 @@
+jar -cfM TestSuite.zip readme.pdf *.exe *.frame *.ATG *.cs *.txt *.bat

@@ -1,0 +1,3119 @@
+++ passed TestAlts_Trace
+-- failed TestAlts_Compilation: line 4, col 1
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+-- failed TestOpts_Compilation: line 7, col 1
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+-- failed TestOpts1_Compilation: line 6, col 1
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+-- failed TestIters_Compilation: line 4, col 1
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+-- failed TestEps_Compilation: line 4, col 1
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 4, col 1
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 8, col 1
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 4, col 1
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 5, col 1
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 4, col 1
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 4, col 1
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 4, col 1
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 8, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 4, col 1
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 8, col 1
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 7, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 4, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 4, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 7, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 13, col 1
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 4, col 1
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 9, col 1
+++ passed TestCasing_Trace
+-- failed TestCasing_Compilation: line 4, col 1
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+-- failed TestAlts_Scanner: line 117, col 22
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+-- failed TestOpts_Scanner: line 117, col 22
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+-- failed TestOpts1_Scanner: line 117, col 22
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+-- failed TestIters_Scanner: line 117, col 22
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+-- failed TestEps_Scanner: line 117, col 22
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+-- failed TestAny_Scanner: line 117, col 22
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+-- failed TestAny1_Scanner: line 117, col 22
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+-- failed TestSync_Scanner: line 117, col 22
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+-- failed TestSem_Scanner: line 117, col 22
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+-- failed TestWeak_Scanner: line 117, col 22
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+-- failed TestChars_Scanner: line 117, col 10
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+-- failed TestTokens_Scanner: line 117, col 22
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+-- failed TestComments_Scanner: line 117, col 22
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+-- failed TestDel_Scanner: line 117, col 22
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+-- failed TestLL1_Scanner: line 117, col 22
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+-- failed TestResOK_Scanner: line 117, col 22
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+-- failed TestCasing_Scanner: line 117, col 22
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+-- failed TestLL1_Scanner: line 117, col 22
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+-- failed TestAlts_Scanner: line 117, col 22
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+-- failed TestOpts_Compilation: line 5, col 24
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+-- failed TestOpts1_Compilation: line 4, col 24
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestOpts_Trace
+-- failed TestOpts_Compilation: line 5, col 24
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+-- failed TestAlts_Trace: line 1, col 1
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 1, col 1
+-- failed TestAlts_Scanner: line 65, col 19
+++ passed TestAlts_Trace
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 107, col 1
+-- failed TestAlts_Scanner: line 5, col 1
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+-- failed TestAlts_Parser: line 19, col 1
+-- failed TestAlts_Scanner: line 14, col 39
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestAlts_Trace
+-- failed TestAlts_Compilation: line 1, col 1
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+-- failed TestOpts_Compilation: line 1, col 1
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+-- failed TestOpts1_Compilation: line 1, col 1
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+-- failed TestIters_Compilation: line 1, col 1
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+-- failed TestEps_Compilation: line 1, col 1
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 1, col 1
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 1, col 1
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 1, col 1
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 1, col 1
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 1, col 1
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 1, col 1
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 1, col 1
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 1, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 1, col 1
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 1, col 1
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 1, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 1, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 1, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 1, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 1, col 1
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 1, col 1
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 1, col 1
+++ passed TestCasing_Trace
+-- failed TestCasing_Compilation: line 1, col 1
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+-- failed TestAlts_Compilation: line 1, col 1
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+-- failed TestOpts_Compilation: line 1, col 1
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+-- failed TestOpts1_Compilation: line 1, col 1
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+-- failed TestIters_Compilation: line 1, col 1
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+-- failed TestEps_Compilation: line 1, col 1
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 1, col 1
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 1, col 1
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 1, col 1
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 1, col 1
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 1, col 1
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 1, col 1
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 1, col 1
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 1, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 1, col 1
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 1, col 1
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 1, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 1, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 1, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 1, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 1, col 1
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 1, col 1
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 1, col 1
+++ passed TestCasing_Trace
+-- failed TestCasing_Compilation: line 1, col 1
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+-- failed TestResOK_Trace: line 15, col 6
+-- failed TestResOK_Compilation: line 3, col 1
+-- failed TestResOK_Parser: line 79, col 3
+++ passed TestResOK_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+-- failed TestSem_Parser: line 19, col 1
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+-- failed TestSem_Parser: line 19, col 1
+++ passed TestSem_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+-- failed TestAlts_Trace: line 72, col 2
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+-- failed TestOpts_Trace: line 76, col 2
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+-- failed TestOpts1_Trace: line 55, col 2
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+-- failed TestIters_Trace: line 79, col 2
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+-- failed TestEps_Trace: line 66, col 2
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+-- failed TestAny_Trace: line 111, col 2
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+-- failed TestAny1_Trace: line 108, col 2
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+-- failed TestSync_Trace: line 82, col 2
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+-- failed TestSem_Trace: line 106, col 2
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+-- failed TestWeak_Trace: line 91, col 2
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+-- failed TestTokens_Trace: line 111, col 2
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+-- failed TestTokens1_Trace: line 30, col 2
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+-- failed TestDel_Trace: line 108, col 2
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+-- failed TestTerminalizable_Trace: line 71, col 2
+++ passed TestTerminalizable_Compilation
+-- failed TestComplete_Trace: line 69, col 2
+++ passed TestComplete_Compilation
+-- failed TestReached_Trace: line 76, col 2
+++ passed TestReached_Compilation
+-- failed TestCircular_Trace: line 77, col 2
+++ passed TestCircular_Compilation
+-- failed TestLL1_Trace: line 186, col 2
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+-- failed TestDel_Trace: line 108, col 2
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+-- failed TestTokens_Trace: line 111, col 2
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+-- failed TestAny_Trace: line 111, col 2
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+-- failed TestAny1_Trace: line 108, col 2
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+-- failed TestAlts_Scanner: line 159, col 4
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+-- failed TestOpts_Scanner: line 159, col 4
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+-- failed TestOpts1_Scanner: line 159, col 4
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+-- failed TestIters_Scanner: line 159, col 4
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+-- failed TestEps_Scanner: line 159, col 4
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+-- failed TestAny_Scanner: line 159, col 4
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+-- failed TestAny1_Scanner: line 159, col 4
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+-- failed TestSync_Scanner: line 159, col 4
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+-- failed TestSem_Scanner: line 159, col 4
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+-- failed TestWeak_Scanner: line 159, col 4
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+-- failed TestChars_Scanner: line 159, col 4
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+-- failed TestTokens_Scanner: line 159, col 4
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+-- failed TestComments_Scanner: line 159, col 4
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+-- failed TestDel_Scanner: line 159, col 4
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+-- failed TestLL1_Scanner: line 159, col 4
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+-- failed TestResOK_Scanner: line 159, col 4
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+-- failed TestCasing_Scanner: line 159, col 4
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+-- failed TestAlts_Parser: line 40, col 37
+-- failed TestAlts_Scanner: line 4, col 25
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+-- failed TestOpts_Parser: line 40, col 37
+-- failed TestOpts_Scanner: line 4, col 25
+++ passed TestOPts1_Trace
+++ passed TestOPts1_Compilation
+-- failed TestOPts1_Parser: line 40, col 37
+-- failed TestOPts1_Scanner: line 4, col 25
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+-- failed TestIters_Parser: line 43, col 37
+-- failed TestIters_Scanner: line 4, col 25
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+-- failed TestEps_Parser: line 40, col 37
+-- failed TestEps_Scanner: line 4, col 25
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+-- failed TestAny_Parser: line 43, col 37
+-- failed TestAny_Scanner: line 4, col 25
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+-- failed TestAny1_Parser: line 43, col 37
+-- failed TestAny1_Scanner: line 4, col 25
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+-- failed TestSem_Parser: line 49, col 37
+-- failed TestSem_Scanner: line 4, col 25
+-- failed TestChars_Trace: line 29, col 25
+++ passed TestChars_Compilation
+-- failed TestChars_Parser: line 35, col 37
+-- failed TestChars_Scanner: line 4, col 25
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+-- failed TestTokens_Parser: line 40, col 37
+-- failed TestTokens_Scanner: line 4, col 25
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+-- failed TestTokens1_Parser: line 40, col 37
+-- failed TestTokens1_Scanner: line 4, col 25
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+-- failed TestComments_Parser: line 35, col 37
+-- failed TestComments_Scanner: line 4, col 25
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+-- failed TestDel_Parser: line 43, col 37
+-- failed TestDel_Scanner: line 4, col 25
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+-- failed TestLL1_Parser: line 43, col 37
+-- failed TestLL1_Scanner: line 4, col 25
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+-- failed TestResOK_Parser: line 34, col 37
+-- failed TestResOK_Scanner: line 4, col 25
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+-- failed TestResIllegal_Parser: line 34, col 37
+-- failed TestResIllegal_Scanner: line 4, col 25
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+-- failed TestCasing_Parser: line 38, col 37
+-- failed TestCasing_Scanner: line 4, col 25
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+-- failed TestAlts_Scanner: line 48, col 3
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+-- failed TestOpts_Scanner: line 48, col 3
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+-- failed TestOpts1_Scanner: line 48, col 3
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+-- failed TestIters_Scanner: line 48, col 3
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+-- failed TestEps_Scanner: line 48, col 3
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+-- failed TestAny_Scanner: line 48, col 3
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+-- failed TestAny1_Scanner: line 48, col 3
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+-- failed TestSync_Scanner: line 48, col 3
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+-- failed TestSem_Scanner: line 48, col 3
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+-- failed TestWeak_Scanner: line 48, col 3
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+-- failed TestChars_Scanner: line 48, col 3
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+-- failed TestTokens_Scanner: line 48, col 3
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+-- failed TestComments_Scanner: line 48, col 3
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+-- failed TestDel_Scanner: line 48, col 3
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+-- failed TestLL1_Scanner: line 48, col 3
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+-- failed TestResOK_Scanner: line 48, col 3
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+-- failed TestCasing_Scanner: line 48, col 3
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+-- failed TestAlts_Scanner: line 48, col 3
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+-- failed TestAlts_Parser: line 158, col 21
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+-- failed TestOpts_Parser: line 168, col 21
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+-- failed TestOpts1_Parser: line 143, col 21
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+-- failed TestIters_Parser: line 169, col 21
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+-- failed TestEps_Parser: line 155, col 21
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+-- failed TestAny_Parser: line 195, col 21
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+-- failed TestAny1_Parser: line 181, col 21
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+-- failed TestSync_Parser: line 167, col 21
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+-- failed TestSem_Parser: line 193, col 21
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+-- failed TestWeak_Parser: line 172, col 21
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+-- failed TestChars_Parser: line 129, col 21
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+-- failed TestTokens_Parser: line 152, col 21
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+-- failed TestComments_Parser: line 129, col 21
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+-- failed TestDel_Parser: line 194, col 21
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+-- failed TestLL1_Parser: line 269, col 21
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+-- failed TestResOK_Parser: line 276, col 21
+++ passed TestResOK_Scanner
+-- failed TestResIllegal_Trace: line 83, col 1
+-- failed TestResIllegal_Compilation: line 3, col 19
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+-- failed TestCasing_Parser: line 146, col 21
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+-- failed TestAlts_Parser: line 158, col 21
+++ passed TestAlts_Scanner
+-- failed TestResIllegal_Trace: line 83, col 1
+-- failed TestResIllegal_Compilation: line 3, col 19
+-- failed TestResIllegal_Parser: line 8, col 19
+-- failed TestResIllegal_Scanner: line 151, col 19
+-- failed TestResIllegal_Trace: line 10, col 28
+-- failed TestResIllegal_Compilation: line 3, col 19
+-- failed TestResIllegal_Parser: line 8, col 19
+-- failed TestResIllegal_Scanner: line 151, col 19
+-- failed TestAts_Trace: line 7, col 6
+-- failed TestAts_Compilation: line 2, col 3
+-- failed TestAts_Parser: line 8, col 12
+-- failed TestAts_Scanner: line 4, col 25
+-- failed TestAlts_Trace: line 20, col 51
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestOpts_Trace: line 20, col 51
+-- failed TestOpts_Compilation: line 1, col 1
+-- failed TestOpts_Parser: line 69, col 1
+-- failed TestOpts1_Trace: line 1, col 1
+-- failed TestOpts1_Compilation: line 1, col 1
+-- failed TestOpts1_Parser: line 69, col 1
+-- failed TestIters_Trace: line 20, col 51
+-- failed TestIters_Compilation: line 1, col 1
+-- failed TestIters_Parser: line 72, col 1
+-- failed TestEps_Trace: line 20, col 51
+-- failed TestEps_Compilation: line 1, col 1
+-- failed TestEps_Parser: line 69, col 1
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 1, col 1
+-- failed TestAny_Parser: line 72, col 1
+-- failed TestAny_Scanner: line 11, col 51
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 1, col 1
+-- failed TestAny1_Parser: line 72, col 1
+-- failed TestAny1_Scanner: line 11, col 51
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 1, col 1
+-- failed TestSync_Parser: line 72, col 1
+-- failed TestSync_Scanner: line 11, col 51
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 1, col 1
+-- failed TestSem_Parser: line 81, col 1
+-- failed TestSem_Scanner: line 11, col 51
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 1, col 1
+-- failed TestWeak_Parser: line 72, col 1
+-- failed TestWeak_Scanner: line 11, col 51
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 1, col 1
+-- failed TestChars_Parser: line 64, col 1
+-- failed TestChars_Scanner: line 11, col 51
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 1, col 1
+-- failed TestTokens_Parser: line 69, col 1
+-- failed TestTokens_Scanner: line 11, col 51
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 1, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 1, col 1
+-- failed TestComments_Parser: line 64, col 1
+-- failed TestComments_Scanner: line 11, col 51
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 1, col 1
+-- failed TestDel_Parser: line 72, col 1
+-- failed TestDel_Scanner: line 11, col 51
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 1, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 1, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 1, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 1, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 1, col 1
+-- failed TestLL1_Parser: line 72, col 1
+-- failed TestLL1_Scanner: line 11, col 51
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 1, col 1
+-- failed TestResOK_Parser: line 63, col 1
+-- failed TestResOK_Scanner: line 11, col 51
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 1, col 1
+-- failed TestCasing_Trace: line 1, col 1
+-- failed TestCasing_Compilation: line 1, col 1
+-- failed TestCasing_Parser: line 67, col 1
+-- failed TestCasing_Scanner: line 11, col 51
+-- failed TestAlts_Trace: line 20, col 51
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+-- failed TestOpts_Trace: line 20, col 51
+-- failed TestOpts_Compilation: line 1, col 1
+-- failed TestOpts_Parser: line 69, col 1
+-- failed TestOpts_Scanner: line 11, col 51
+-- failed TestOpts1_Trace: line 1, col 1
+-- failed TestOpts1_Compilation: line 1, col 1
+-- failed TestOpts1_Parser: line 69, col 1
+-- failed TestOpts1_Scanner: line 11, col 51
+-- failed TestIters_Trace: line 20, col 51
+-- failed TestIters_Compilation: line 1, col 1
+-- failed TestIters_Parser: line 72, col 1
+-- failed TestIters_Scanner: line 11, col 51
+-- failed TestEps_Trace: line 20, col 51
+-- failed TestEps_Compilation: line 1, col 1
+-- failed TestEps_Parser: line 69, col 1
+-- failed TestEps_Scanner: line 11, col 51
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 1, col 1
+-- failed TestAny_Parser: line 72, col 1
+-- failed TestAny_Scanner: line 11, col 51
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 1, col 1
+-- failed TestAny1_Parser: line 72, col 1
+-- failed TestAny1_Scanner: line 11, col 51
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 1, col 1
+-- failed TestSync_Parser: line 72, col 1
+-- failed TestSync_Scanner: line 11, col 51
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 1, col 1
+-- failed TestSem_Parser: line 81, col 1
+-- failed TestSem_Scanner: line 11, col 51
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 1, col 1
+-- failed TestWeak_Parser: line 72, col 1
+-- failed TestWeak_Scanner: line 11, col 51
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 1, col 1
+-- failed TestChars_Parser: line 64, col 1
+-- failed TestChars_Scanner: line 11, col 51
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 1, col 1
+-- failed TestTokens_Parser: line 69, col 1
+-- failed TestTokens_Scanner: line 11, col 51
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 1, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 1, col 1
+-- failed TestComments_Parser: line 64, col 1
+-- failed TestComments_Scanner: line 11, col 51
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 1, col 1
+-- failed TestDel_Parser: line 72, col 1
+-- failed TestDel_Scanner: line 11, col 51
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 1, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 1, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 1, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 1, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 1, col 1
+-- failed TestLL1_Parser: line 72, col 1
+-- failed TestLL1_Scanner: line 11, col 51
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 1, col 1
+-- failed TestResOK_Parser: line 63, col 1
+-- failed TestResOK_Scanner: line 11, col 51
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 1, col 1
+-- failed TestCasing_Trace: line 1, col 1
+-- failed TestCasing_Compilation: line 1, col 1
+-- failed TestCasing_Parser: line 67, col 1
+-- failed TestCasing_Scanner: line 11, col 51
+-- failed TestAlts_Trace: line 20, col 51
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+-- failed TestOpts_Trace: line 20, col 51
+-- failed TestOpts_Compilation: line 1, col 1
+-- failed TestOpts_Parser: line 69, col 1
+-- failed TestOpts_Scanner: line 11, col 51
+-- failed TestOpts1_Trace: line 1, col 1
+-- failed TestOpts1_Compilation: line 1, col 1
+-- failed TestOpts1_Parser: line 69, col 1
+-- failed TestOpts1_Scanner: line 11, col 51
+-- failed TestIters_Trace: line 20, col 51
+-- failed TestIters_Compilation: line 1, col 1
+-- failed TestIters_Parser: line 72, col 1
+-- failed TestIters_Scanner: line 11, col 51
+-- failed TestEps_Trace: line 20, col 51
+-- failed TestEps_Compilation: line 1, col 1
+-- failed TestEps_Parser: line 69, col 1
+-- failed TestEps_Scanner: line 11, col 51
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 1, col 1
+-- failed TestAny_Parser: line 72, col 1
+-- failed TestAny_Scanner: line 11, col 51
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 1, col 1
+-- failed TestAny1_Parser: line 72, col 1
+-- failed TestAny1_Scanner: line 11, col 51
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 1, col 1
+-- failed TestSync_Parser: line 72, col 1
+-- failed TestSync_Scanner: line 11, col 51
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 1, col 1
+-- failed TestSem_Parser: line 81, col 1
+-- failed TestSem_Scanner: line 11, col 51
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 1, col 1
+-- failed TestWeak_Parser: line 72, col 1
+-- failed TestWeak_Scanner: line 11, col 51
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 1, col 1
+-- failed TestChars_Parser: line 64, col 1
+-- failed TestChars_Scanner: line 11, col 51
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 1, col 1
+-- failed TestTokens_Parser: line 69, col 1
+-- failed TestTokens_Scanner: line 11, col 51
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 1, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 1, col 1
+-- failed TestComments_Parser: line 64, col 1
+-- failed TestComments_Scanner: line 11, col 51
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 1, col 1
+-- failed TestDel_Parser: line 72, col 1
+-- failed TestDel_Scanner: line 11, col 51
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 1, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 1, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 1, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 1, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 1, col 1
+-- failed TestLL1_Parser: line 72, col 1
+-- failed TestLL1_Scanner: line 11, col 51
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 1, col 1
+-- failed TestResOK_Parser: line 63, col 1
+-- failed TestResOK_Scanner: line 11, col 51
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 1, col 1
+-- failed TestCasing_Trace: line 1, col 1
+-- failed TestCasing_Compilation: line 1, col 1
+-- failed TestCasing_Parser: line 67, col 1
+-- failed TestCasing_Scanner: line 11, col 51
+-- failed TestAlts_Trace: line 20, col 51
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+-- failed TestOpts_Trace: line 20, col 51
+-- failed TestOpts_Compilation: line 1, col 1
+-- failed TestOpts_Parser: line 69, col 1
+-- failed TestOpts_Scanner: line 11, col 51
+-- failed TestOpts1_Trace: line 1, col 1
+-- failed TestOpts1_Compilation: line 1, col 1
+-- failed TestOpts1_Parser: line 69, col 1
+-- failed TestOpts1_Scanner: line 11, col 51
+-- failed TestIters_Trace: line 20, col 51
+-- failed TestIters_Compilation: line 1, col 1
+-- failed TestIters_Parser: line 72, col 1
+-- failed TestIters_Scanner: line 11, col 51
+-- failed TestEps_Trace: line 20, col 51
+-- failed TestEps_Compilation: line 1, col 1
+-- failed TestEps_Parser: line 69, col 1
+-- failed TestEps_Scanner: line 11, col 51
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 1, col 1
+-- failed TestAny_Parser: line 72, col 1
+-- failed TestAny_Scanner: line 11, col 51
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 1, col 1
+-- failed TestAny1_Parser: line 72, col 1
+-- failed TestAny1_Scanner: line 11, col 51
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 1, col 1
+-- failed TestSync_Parser: line 72, col 1
+-- failed TestSync_Scanner: line 11, col 51
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 1, col 1
+-- failed TestSem_Parser: line 81, col 1
+-- failed TestSem_Scanner: line 11, col 51
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 1, col 1
+-- failed TestWeak_Parser: line 72, col 1
+-- failed TestWeak_Scanner: line 11, col 51
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 1, col 1
+-- failed TestChars_Parser: line 64, col 1
+-- failed TestChars_Scanner: line 11, col 51
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 1, col 1
+-- failed TestTokens_Parser: line 69, col 1
+-- failed TestTokens_Scanner: line 11, col 51
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 1, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 1, col 1
+-- failed TestComments_Parser: line 64, col 1
+-- failed TestComments_Scanner: line 11, col 51
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 1, col 1
+-- failed TestDel_Parser: line 72, col 1
+-- failed TestDel_Scanner: line 11, col 51
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 1, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 1, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 1, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 1, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 1, col 1
+-- failed TestLL1_Parser: line 72, col 1
+-- failed TestLL1_Scanner: line 11, col 51
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 1, col 1
+-- failed TestResOK_Parser: line 63, col 1
+-- failed TestResOK_Scanner: line 11, col 51
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 1, col 1
+-- failed TestCasing_Trace: line 1, col 1
+-- failed TestCasing_Compilation: line 1, col 1
+-- failed TestCasing_Parser: line 67, col 1
+-- failed TestCasing_Scanner: line 11, col 51
+-- failed TestAlts_Trace: line 20, col 51
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+-- failed TestAlts_Trace: line 20, col 51
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+-- failed TestAlts_Trace: line 20, col 51
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+++ passed TestAlts_Trace
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+++ passed TestOpts_Trace
+-- failed TestOpts_Compilation: line 1, col 1
+-- failed TestOpts_Parser: line 69, col 1
+-- failed TestOpts_Scanner: line 11, col 51
+++ passed TestOpts1_Trace
+-- failed TestOpts1_Compilation: line 1, col 1
+-- failed TestOpts1_Parser: line 69, col 1
+-- failed TestOpts1_Scanner: line 11, col 51
+++ passed TestIters_Trace
+-- failed TestIters_Compilation: line 1, col 1
+-- failed TestIters_Parser: line 72, col 1
+-- failed TestIters_Scanner: line 11, col 51
+++ passed TestEps_Trace
+-- failed TestEps_Compilation: line 1, col 1
+-- failed TestEps_Parser: line 69, col 1
+-- failed TestEps_Scanner: line 11, col 51
+++ passed TestAny_Trace
+-- failed TestAny_Compilation: line 1, col 1
+-- failed TestAny_Parser: line 72, col 1
+-- failed TestAny_Scanner: line 11, col 51
+++ passed TestAny1_Trace
+-- failed TestAny1_Compilation: line 1, col 1
+-- failed TestAny1_Parser: line 72, col 1
+-- failed TestAny1_Scanner: line 11, col 51
+++ passed TestSync_Trace
+-- failed TestSync_Compilation: line 1, col 1
+-- failed TestSync_Parser: line 72, col 1
+-- failed TestSync_Scanner: line 11, col 51
+++ passed TestSem_Trace
+-- failed TestSem_Compilation: line 1, col 1
+-- failed TestSem_Parser: line 81, col 1
+-- failed TestSem_Scanner: line 11, col 51
+++ passed TestWeak_Trace
+-- failed TestWeak_Compilation: line 1, col 1
+-- failed TestWeak_Parser: line 72, col 1
+-- failed TestWeak_Scanner: line 11, col 51
+++ passed TestChars_Trace
+-- failed TestChars_Compilation: line 1, col 1
+-- failed TestChars_Parser: line 64, col 1
+-- failed TestChars_Scanner: line 11, col 51
+++ passed TestTokens_Trace
+-- failed TestTokens_Compilation: line 1, col 1
+-- failed TestTokens_Parser: line 69, col 1
+-- failed TestTokens_Scanner: line 11, col 51
+++ passed TestTokens1_Trace
+-- failed TestTokens1_Compilation: line 1, col 1
+++ passed TestComments_Trace
+-- failed TestComments_Compilation: line 1, col 1
+-- failed TestComments_Parser: line 64, col 1
+-- failed TestComments_Scanner: line 11, col 51
+++ passed TestDel_Trace
+-- failed TestDel_Compilation: line 1, col 1
+-- failed TestDel_Parser: line 72, col 1
+-- failed TestDel_Scanner: line 11, col 51
+++ passed TestTerminalizable_Trace
+-- failed TestTerminalizable_Compilation: line 1, col 1
+++ passed TestComplete_Trace
+-- failed TestComplete_Compilation: line 1, col 1
+++ passed TestReached_Trace
+-- failed TestReached_Compilation: line 1, col 1
+++ passed TestCircular_Trace
+-- failed TestCircular_Compilation: line 1, col 1
+++ passed TestLL1_Trace
+-- failed TestLL1_Compilation: line 1, col 1
+-- failed TestLL1_Parser: line 72, col 1
+-- failed TestLL1_Scanner: line 11, col 51
+++ passed TestResOK_Trace
+-- failed TestResOK_Compilation: line 1, col 1
+-- failed TestResOK_Parser: line 63, col 1
+-- failed TestResOK_Scanner: line 11, col 51
+++ passed TestResIllegal_Trace
+-- failed TestResIllegal_Compilation: line 1, col 1
+++ passed TestCasing_Trace
+-- failed TestCasing_Compilation: line 1, col 1
+-- failed TestCasing_Parser: line 67, col 1
+-- failed TestCasing_Scanner: line 11, col 51
+++ passed TestAlts_Trace
+-- failed TestAlts_Compilation: line 1, col 1
+-- failed TestAlts_Parser: line 69, col 1
+-- failed TestAlts_Scanner: line 11, col 51
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner
+++ passed TestAlts_Trace
+++ passed TestAlts_Compilation
+++ passed TestAlts_Parser
+++ passed TestAlts_Scanner
+++ passed TestOpts_Trace
+++ passed TestOpts_Compilation
+++ passed TestOpts_Parser
+++ passed TestOpts_Scanner
+++ passed TestOpts1_Trace
+++ passed TestOpts1_Compilation
+++ passed TestOpts1_Parser
+++ passed TestOpts1_Scanner
+++ passed TestIters_Trace
+++ passed TestIters_Compilation
+++ passed TestIters_Parser
+++ passed TestIters_Scanner
+++ passed TestEps_Trace
+++ passed TestEps_Compilation
+++ passed TestEps_Parser
+++ passed TestEps_Scanner
+++ passed TestAny_Trace
+++ passed TestAny_Compilation
+++ passed TestAny_Parser
+++ passed TestAny_Scanner
+++ passed TestAny1_Trace
+++ passed TestAny1_Compilation
+++ passed TestAny1_Parser
+++ passed TestAny1_Scanner
+++ passed TestSync_Trace
+++ passed TestSync_Compilation
+++ passed TestSync_Parser
+++ passed TestSync_Scanner
+++ passed TestSem_Trace
+++ passed TestSem_Compilation
+++ passed TestSem_Parser
+++ passed TestSem_Scanner
+++ passed TestWeak_Trace
+++ passed TestWeak_Compilation
+++ passed TestWeak_Parser
+++ passed TestWeak_Scanner
+++ passed TestChars_Trace
+++ passed TestChars_Compilation
+++ passed TestChars_Parser
+++ passed TestChars_Scanner
+++ passed TestTokens_Trace
+++ passed TestTokens_Compilation
+++ passed TestTokens_Parser
+++ passed TestTokens_Scanner
+++ passed TestTokens1_Trace
+++ passed TestTokens1_Compilation
+++ passed TestComments_Trace
+++ passed TestComments_Compilation
+++ passed TestComments_Parser
+++ passed TestComments_Scanner
+++ passed TestDel_Trace
+++ passed TestDel_Compilation
+++ passed TestDel_Parser
+++ passed TestDel_Scanner
+++ passed TestTerminalizable_Trace
+++ passed TestTerminalizable_Compilation
+++ passed TestComplete_Trace
+++ passed TestComplete_Compilation
+++ passed TestReached_Trace
+++ passed TestReached_Compilation
+++ passed TestCircular_Trace
+++ passed TestCircular_Compilation
+++ passed TestLL1_Trace
+++ passed TestLL1_Compilation
+++ passed TestLL1_Parser
+++ passed TestLL1_Scanner
+++ passed TestResOK_Trace
+++ passed TestResOK_Compilation
+++ passed TestResOK_Parser
+++ passed TestResOK_Scanner
+++ passed TestResIllegal_Trace
+++ passed TestResIllegal_Compilation
+++ passed TestCasing_Trace
+++ passed TestCasing_Compilation
+++ passed TestCasing_Parser
+++ passed TestCasing_Scanner

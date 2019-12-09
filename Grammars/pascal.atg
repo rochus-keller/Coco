@@ -1,0 +1,177 @@
+COMPILER Pascal
+
+	bool FirstOfVariant() {
+		int next = Peek().kind;
+		return next == _plus || next == _minus  || next == _ident || next == _string
+		|| next == _intcon || next == _realcon;
+	}
+
+	Token Peek() {
+		scanner.ResetPeek();
+		return scanner.Peek();
+	}
+
+IGNORECASE
+
+CHARACTERS 
+	letter     = 'a'..'z'.
+	digit      = '0'..'9'.
+	stringchar = ANY - '\''.
+
+TOKENS
+	ident   = letter {letter | digit}.
+	string  = "\'" {stringchar | "\'\'"} "\'".
+	intcon  = digit {digit} | digit {digit} CONTEXT("..").
+	realcon = digit {digit} 
+	          ( "." digit {digit} ["e" ["+" | "-"] digit {digit}]
+	          | "e" ["+" | "-"] digit {digit}
+	          ).
+	semicol = ";".
+	dotdot  = "..".
+	plus    = "+".
+	minus   = "-".
+	case    = "case".
+	end     = "end".
+
+COMMENTS FROM "{" TO "}" 
+COMMENTS FROM "(*" TO "*)"
+
+IGNORE '\t' + '\r' + '\n' + '\f'
+
+PRODUCTIONS
+
+
+// Declarations
+//===============================================
+Pascal = "program" ident ["(" IdentList ")"] ";" Block ".".
+/*---------------------------------------------*/
+Block = 
+  [ "label" Label {"," Label} ";" ]
+  [ "const" ConstDecl {ConstDecl} ]
+  [ "type" TypeDecl {TypeDecl} ]
+  [ "var" VarDecl {VarDecl} ]
+  { "procedure" ident [FormParList] ";" (Block | Directive) ";"
+  | "function" ident [FormParList] [":" ident] ";" (Block | Directive)  ";" 
+  }
+  "begin" StatementSeq "end".
+/*---------------------------------------------*/
+ConstDecl = ident "=" Constant ";".
+/*---------------------------------------------*/
+TypeDecl = ident "=" Type ";".
+/*---------------------------------------------*/
+VarDecl = IdentList ":" Type ";".
+/*---------------------------------------------*/
+IdentList = ident { "," ident }.
+/*---------------------------------------------*/
+Constant = [ "+" | "-" ] (ident | intcon | realcon) | string.
+/*---------------------------------------------*/
+Directive = ident.
+/*---------------------------------------------*/
+FormParList = "(" FormParSect {";" FormParSect} ")".
+/*---------------------------------------------*/
+FormParSect = 
+	["var"] IdentList ":" (ident | ConformantArray)
+| "procedure" ident [FormParList]
+| "function" ident [FormParList] ":" ident.
+/*---------------------------------------------*/
+ConformantArray = 
+  "array" "[" Bounds {";" Bounds} "]" "of" (ident | ConformantArray)
+| "packed" "array" "[" Bounds "]" "of" ident.
+/*---------------------------------------------*/
+Bounds = ident ".." ident ":" ident.
+/*---------------------------------------------*/
+Label = intcon.
+
+
+// Statements
+//===============================================
+StatementSeq = Statement {";" Statement}.
+/*---------------------------------------------*/
+Statement = 
+  [ Label ":" ] 
+  [ Designator ( ":=" Expr | [ActParList]) 
+  | "goto" Label
+  | "begin" StatementSeq "end"
+  | "while" Expr "do" Statement
+  | "repeat" StatementSeq "until" Expr
+  | "for" ident ":=" Expr ("to" | "downto") Expr "do" Statement
+  | "if" Expr "then" Statement [ "else" Statement ]
+  | "case" Expr "of" Case { IF(la.kind == _semicol && Peek().kind != _end) ";" Case } [";"] "end"
+  | "with" Designator { "," Designator } "do" Statement
+  ].
+/*---------------------------------------------*/
+Case = Constant {"," Constant} ":" Statement.
+/*---------------------------------------------*/
+ActParList = "(" ActPar {"," ActPar} ")".
+/*---------------------------------------------*/
+ActPar = Expr [":" Expr [":" Expr]].
+
+
+// Expressions
+//===============================================
+Expr = SimExpr [ RelOp SimExpr ].
+/*---------------------------------------------*/
+SimExpr = [ "+" | "-" ] Term { AddOp Term }. 
+/*---------------------------------------------*/
+Term = Factor { MultOp Factor }.
+/*---------------------------------------------*/
+Factor = 
+  Designator [ ActParList ]
+| intcon
+| realcon
+| string
+| Set
+| "nil"
+| "(" Expr ")"
+| "not" Factor.
+/*---------------------------------------------*/
+Designator =
+	ident 
+	{ "[" Expr {"," Expr} "]"
+	| "." ident
+	| "^" 
+	}.
+/*---------------------------------------------*/
+Set = "[" [Elem {"," Elem}] "]".
+/*---------------------------------------------*/
+Elem = Expr [".." Expr].
+/*---------------------------------------------*/
+RelOp = "=" | "<>" | "<" | "<=" | ">" | ">=" | "in".
+/*---------------------------------------------*/
+AddOp = "+" | "-" | "or".
+/*---------------------------------------------*/
+MultOp = "*" | "/" | "div" | "mod" | "and".
+
+
+// Types
+//===============================================
+Type =
+  SimpleType
+| "^" ident
+| [ "packed" ] 
+  ( "array" "[" SimpleType {"," SimpleType} "]" "of" Type
+  | "record" [FieldList] "end"
+  | "set" "of" Type
+  | "file" "of" Type
+  ).
+/*---------------------------------------------*/
+SimpleType =
+  IF(la.kind == _ident && Peek().kind != _dotdot) ident
+| Constant ".." Constant
+| "(" IdentList ")".   
+/*---------------------------------------------*/
+FieldList = 
+( FixedPart [ IF(la.kind == _semicol && Peek().kind == _case) ";" VariantPart ] 
+| VariantPart 
+) [ ";" ].
+/*---------------------------------------------*/
+FixedPart = FieldDecl { IF(la.kind == _semicol && Peek().kind == _ident) ";" FieldDecl }.
+/*---------------------------------------------*/
+FieldDecl = IdentList ":" Type.
+/*---------------------------------------------*/
+VariantPart = "case" ident [":" ident] "of" Variant { IF(la.kind == _semicol && FirstOfVariant()) ";" Variant }.
+/*---------------------------------------------*/
+Variant = Constant {"," Constant} ":" "(" [FieldList] ")".
+
+
+END Pascal.

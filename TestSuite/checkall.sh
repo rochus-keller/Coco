@@ -1,0 +1,24 @@
+#!/bin/sh
+./check.sh TestAlts
+./check.sh TestOpts
+./check.sh TestOpts1
+./check.sh TestIters
+./check.sh TestEps
+./check.sh TestAny
+./check.sh TestAny1
+./check.sh TestSync
+./check.sh TestSem
+./check.sh TestWeak
+./check.sh TestChars
+./check.sh TestTokens
+./checkerr.sh TestTokens1
+./check.sh TestComments
+./check.sh TestDel
+./checkerr.sh TestTerminalizable
+./checkerr.sh TestComplete
+./checkerr.sh TestReached
+./checkerr.sh TestCircular
+./check.sh TestLL1
+./check.sh TestResOK
+./checkerr.sh TestResIllegal
+./check.sh TestCasing

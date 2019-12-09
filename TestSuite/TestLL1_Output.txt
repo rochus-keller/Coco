@@ -1,0 +1,14 @@
+Coco/R (Dec 01, 2018)
+checking
+  F deletable
+  LL1 warning in A: a is start of several alternatives
+  LL1 warning in E: e is start of several alternatives
+  LL1 warning in C: a is start & successor of deletable structure
+  LL1 warning in G: a is start & successor of deletable structure
+  LL1 warning in H: a is start & successor of deletable structure
+  LL1 warning in I: a is start & successor of deletable structure
+  LL1 warning in J: a is start & successor of deletable structure
+  LL1 warning in D: b is start & successor of deletable structure
+parser + scanner generated
+trace output is in trace.txt
+0 errors detected
