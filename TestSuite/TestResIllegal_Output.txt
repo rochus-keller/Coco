@@ -1,0 +1,13 @@
+Coco/R (Dec 01, 2018)
+checking
+-- line 8 col 14: Warning: Misplaced resolver: no alternative.
+-- line 9 col 9: Warning: Resolver will never be evaluated. Place it at previous conflicting alternative.
+-- line 10 col 9: Warning: Misplaced resolver: no LL(1) conflict.
+-- line 13 col 11: Warning: Misplaced resolver: no alternative.
+-- line 15 col 12: Warning: Misplaced resolver: no LL(1) conflict.
+-- line 20 col 9: Warning: Misplaced resolver: no LL(1) conflict.
+-- line 24 col 8: Warning: Misplaced resolver: no LL(1) conflict.
+  LL1 warning in D: "a" is start & successor of deletable structure
+parser + scanner generated
+trace output is in trace.txt
+0 errors detected
